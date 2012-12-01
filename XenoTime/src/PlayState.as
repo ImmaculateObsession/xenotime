@@ -120,7 +120,6 @@ package
 			}
 			playerGrid.changeTile(point, tileType);
 			collisionGrid.changeTile(point, tileType);
-//			collisionGrid.setTileProperties(15, 0x0000);
 			path = collisionGrid.findPath(new FlxPoint(10,10), new FlxPoint(600, 600));
 			trace(path);
 		}
