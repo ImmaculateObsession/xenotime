@@ -43,7 +43,6 @@ package
 				if (this.getTile(tileX, tileY) != tileType)
 				{
 					this.setTile(tileX, tileY, tileType, true);
-					trace(this, this.getTile(tileX, tileY));
 				}
 			}
 			return;
