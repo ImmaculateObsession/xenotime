@@ -8,7 +8,6 @@ package
 		
 		public function Player()
 		{
-			//var mouse = new Mouse();
 		}
 		
 		override public function update():void
