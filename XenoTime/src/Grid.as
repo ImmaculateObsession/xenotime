@@ -28,11 +28,11 @@ package
 			return this.widthInTiles * this.TILEWIDTH;
 		}
 		
-		public function changeTile(point:FlxPoint, tileType:uint):void
+		public function changeTile(point:FlxPoint, tileType:uint):Boolean
 		{
 			if (tileType == 0)
 			{
-				return;
+				return false;
 			}
 			if (point.x <= this.getGridWidth() && point.y <= this.getGridHeight())
 			{
@@ -40,13 +40,14 @@ package
 				var newY:uint = point.y;
 				var tileX:uint = Math.floor(newX/64);
 				var tileY:uint = Math.floor(newY/64);
+				var placed:Boolean = false;
 				if (this.getTile(tileX, tileY) != tileType)
 				{
 					this.setTile(tileX, tileY, tileType, true);
-					trace(this, this.getTile(tileX, tileY));
+					placed = true;
 				}
 			}
-			return;
+			return placed;
 		}
 		
 	}
