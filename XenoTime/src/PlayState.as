@@ -45,8 +45,8 @@ package
 			{
 				handleClick(point);
 			}
-			mouseTile.x = point.x;
-			mouseTile.y = point.y;
+			mouseTile.x = point.x - 32;
+			mouseTile.y = point.y - 32;
 			super.update();
 		}
 		
@@ -55,10 +55,16 @@ package
 			var handledTile:uint = hud.handleClick(point);
 			if (handledTile >= 15)
 			{
+				FlxG.mouse.hide();
 				mouseTile.frame = handledTile;
 				tileType = handledTile
 			}
-			level.placeTile(point, tileType);
+			var placed:Boolean = level.placeTile(point, tileType);
+			if (placed == true)
+			{
+				mouseTile.frame = 0;
+				FlxG.mouse.show();
+			}
 		}
 	}
 }

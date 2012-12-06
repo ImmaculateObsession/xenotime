@@ -62,10 +62,11 @@ package
 			add(playerGrid);
 		}
 		
-		public function placeTile(point:FlxPoint, tileType:uint):void
+		public function placeTile(point:FlxPoint, tileType:uint):Boolean
 		{
-			playerGrid.changeTile(point, tileType);
-			collisionGrid.changeTile(point, tileType);
+			var playerPlaced:Boolean = playerGrid.changeTile(point, tileType);
+			var collisionPlaced:Boolean = collisionGrid.changeTile(point, tileType);
+			return (playerPlaced && collisionPlaced);
 		}
 		
 	}
