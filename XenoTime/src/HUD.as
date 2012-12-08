@@ -18,28 +18,28 @@ package
 
 		public function HUD()
 		{
-			forestStraight = new FlxSprite(700, 100);
+			forestStraight = new FlxSprite(800, 100);
 			forestStraight.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			forestStraight.frame = 15;
-			forestCorner = new FlxSprite(800, 100);
+			forestCorner = new FlxSprite(900, 100);
 			forestCorner.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			forestCorner.frame = 16;
-			forestQuad = new FlxSprite(700, 200);
+			forestQuad = new FlxSprite(800, 200);
 			forestQuad.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			forestQuad.frame = 17;
-			forestThree = new FlxSprite(800, 200);
+			forestThree = new FlxSprite(900, 200);
 			forestThree.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			forestThree.frame = 18;
-			cityStraight = new FlxSprite(700, 400);
+			cityStraight = new FlxSprite(800, 400);
 			cityStraight.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			cityStraight.frame = 19;
-			cityCorner = new FlxSprite(800, 400);
+			cityCorner = new FlxSprite(900, 400);
 			cityCorner.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			cityCorner.frame = 20;
-			cityQuad = new FlxSprite(700, 500);
+			cityQuad = new FlxSprite(800, 500);
 			cityQuad.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			cityQuad.frame = 22;
-			cityThree = new FlxSprite(800, 500);
+			cityThree = new FlxSprite(900, 500);
 			cityThree.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
 			cityThree.frame = 21;
 

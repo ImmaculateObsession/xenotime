@@ -6,38 +6,41 @@ package
 	{
 		
 		protected var backLevel:Array = new Array(
-			1,2,1,2,1,2,1,2,1,2,
-			3,4,3,4,3,4,3,4,3,4,
-			1,2,1,2,1,2,1,2,1,2,
-			3,4,3,4,3,4,3,4,3,4,
-			1,2,1,2,1,2,1,2,1,2,
-			3,4,3,4,3,4,3,4,3,4,
-			1,2,1,2,1,2,1,2,1,2,
-			3,4,3,4,3,4,3,4,3,4,
-			1,2,1,2,1,2,1,2,1,2,
-			3,4,3,4,3,4,3,4,3,4);
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,1,2,1,2,1,2,1,2,1,2,
+			0,3,4,3,4,3,4,3,4,3,4,
+			0,1,2,1,2,1,2,1,2,1,2,
+			0,3,4,3,4,3,4,3,4,3,4,
+			0,1,2,1,2,1,2,1,2,1,2,
+			0,3,4,3,4,3,4,3,4,3,4,
+			0,1,2,1,2,1,2,1,2,1,2,
+			0,3,4,3,4,3,4,3,4,3,4,
+			0,1,2,1,2,1,2,1,2,1,2,
+			0,3,4,3,4,3,4,3,4,3,4);
 		protected var obstacles:Array = new Array(
-			0,0,0,0,0,0,14,0,0,0,
-			0,0,0,0,0,0,13,0,0,0,
-			0,0,0,0,0,0,14,0,0,0,
-			0,0,0,0,0,0,13,0,0,0,
-			0,0,0,0,0,0,14,0,0,0,
-			0,0,0,0,0,0,13,0,0,0,
-			0,0,0,0,0,0,14,0,0,0,
-			0,0,0,0,0,0,13,0,0,0,
-			0,0,0,0,0,0,14,0,0,0,
-			0,0,0,0,0,0,13,0,0,0);
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,14,0,0,0,
+			0,0,0,0,0,0,0,13,0,0,0,
+			0,0,0,0,0,0,0,14,0,0,0,
+			0,0,0,0,0,0,0,13,0,0,0,
+			0,0,0,0,0,0,0,14,0,0,0,
+			0,0,0,0,0,0,0,13,0,0,0,
+			0,0,0,0,0,0,0,14,0,0,0,
+			0,0,0,0,0,0,0,13,0,0,0,
+			0,0,0,0,0,0,0,14,0,0,0,
+			0,0,0,0,0,0,0,13,0,0,0);
 		protected var blank:Array = new Array(
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0,
-			0,0,0,0,0,0,0,0,0,0);
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,
+			0,0,0,0,0,0,0,0,0,0,0);
 		
 		protected var background:FlxTilemap;
 		protected var collisionGrid:Grid;
@@ -49,11 +52,11 @@ package
 		public function Level()
 		{
 			background = new FlxTilemap();
-			background.loadMap(FlxTilemap.arrayToCSV(backLevel, 10), PlayState.MapTile, TILEWIDTH, TILEHEIGHT, FlxTilemap.OFF, 0, 0);
+			background.loadMap(FlxTilemap.arrayToCSV(backLevel, 11), PlayState.MapTile, TILEWIDTH, TILEHEIGHT, FlxTilemap.OFF, 0, 0);
 			collisionGrid = new Grid(obstacles);
 			collisionGrid.visible = false;
 			obstacleMap = new FlxTilemap();
-			obstacleMap.loadMap(FlxTilemap.arrayToCSV(obstacles, 10), PlayState.MapTile, TILEWIDTH, TILEHEIGHT, FlxTilemap.OFF, 0, 0);
+			obstacleMap.loadMap(FlxTilemap.arrayToCSV(obstacles, 11), PlayState.MapTile, TILEWIDTH, TILEHEIGHT, FlxTilemap.OFF, 0, 0);
 			playerGrid = new Grid(blank);
 			
 			add(background);
