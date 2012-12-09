@@ -24,7 +24,7 @@ package
 			FlxG.mouse.show();
 			FlxG.bgColor = 0xff000000;
 			
-			level = new Level()
+			level = new Level();
 			hud = new HUD();
 			
 			mouseTile = new FlxSprite();

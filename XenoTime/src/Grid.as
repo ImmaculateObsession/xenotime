@@ -10,7 +10,7 @@ package
 		
 		public function Grid(data:Array):void
 		{
-			this.loadMap(FlxTilemap.arrayToCSV(data, 10), PlayState.MapTile, TILEWIDTH, TILEHEIGHT, FlxTilemap.OFF, 0, 0);
+			this.loadMap(FlxTilemap.arrayToCSV(data, 11), PlayState.MapTile, TILEWIDTH, TILEHEIGHT, FlxTilemap.OFF, 0, 0);
 		}
 		
 		override public function update():void
@@ -34,7 +34,7 @@ package
 			{
 				return false;
 			}
-			if (point.x <= this.getGridWidth() && point.y <= this.getGridHeight())
+			if ((point.x <= this.getGridWidth() && point.x >= TILEWIDTH) && (point.y <= this.getGridHeight() && point.y >= TILEHEIGHT))
 			{
 				var newX:uint = point.x;
 				var newY:uint = point.y;
