@@ -57,6 +57,7 @@ package
                 tileType = handledTile
             }
             var placed:Boolean = level.placeTile(point, tileType);
+            // var placed:Boolean = false
             if (placed == true)
             {
                 hud.showTileHandlers(point, point);

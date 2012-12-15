@@ -1,6 +1,7 @@
 package
 {
     import org.flixel.FlxGroup;
+    import org.flixel.FlxPoint;
 
     public class PlayGrid extends FlxGroup
     {
@@ -23,10 +24,20 @@ package
                     var tempTile:Tile = new Tile(i*TILEWIDTH + x, j*TILEWIDTH + y);
                     tempTile.loadGraphic(PlayState.MapTile, true, false, TILEWIDTH, TILEHEIGHT, false);
                     tempTile.frame = tileData[j*height +i];
+                    tempTile.setSides(tileData[j*height + i]);
                     tiles[i][j] = tempTile
                     add(tiles[i][j]);
                 }
             }
+        }
+
+        public function changeTile(point:FlxPoint, tileType:uint):void
+        {
+            var tileX:uint = Math.floor(point.x/TILEWIDTH);
+            var tileY:uint = Math.floor(point.y/TILEHEIGHT);
+
+            tiles[tileX][tileY].frame = tileType;
+            tiles[tileX][tileY].setSides(tileType);
         }
     }
 }

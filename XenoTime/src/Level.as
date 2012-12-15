@@ -59,7 +59,7 @@ package
         
         public function placeTile(point:FlxPoint, tileType:uint):Boolean
         {
-            // var playerPlaced:Boolean = playerGrid.changeTile(point, tileType);
+            playerGrid.changeTile(point, tileType);
             // var collisionPlaced:Boolean = collisionGrid.changeTile(point, tileType);
             // return (playerPlaced && collisionPlaced);
             return true;
