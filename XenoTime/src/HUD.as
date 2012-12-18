@@ -25,38 +25,38 @@ package
         public function HUD()
         {
             forestStraight = new FlxSprite(800, 100);
-            forestStraight.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            forestStraight.frame = 15;
+            forestStraight.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            forestStraight.frame = Common.forestPipe1;
             forestCorner = new FlxSprite(900, 100);
-            forestCorner.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            forestCorner.frame = 16;
+            forestCorner.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            forestCorner.frame = Common.forestPipe2;
             forestQuad = new FlxSprite(800, 200);
-            forestQuad.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            forestQuad.frame = 17;
+            forestQuad.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            forestQuad.frame = Common.forestPipe4;
             forestThree = new FlxSprite(900, 200);
-            forestThree.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            forestThree.frame = 18;
+            forestThree.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            forestThree.frame = Common.forestPipe3;
             cityStraight = new FlxSprite(800, 400);
-            cityStraight.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            cityStraight.frame = 19;
+            cityStraight.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            cityStraight.frame = Common.cityPipe1;
             cityCorner = new FlxSprite(900, 400);
-            cityCorner.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            cityCorner.frame = 20;
+            cityCorner.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            cityCorner.frame = Common.cityPipe2;
             cityQuad = new FlxSprite(800, 500);
-            cityQuad.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            cityQuad.frame = 22;
+            cityQuad.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            cityQuad.frame = Common.cityPipe4;
             cityThree = new FlxSprite(900, 500);
-            cityThree.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            cityThree.frame = 21;
+            cityThree.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            cityThree.frame = Common.cityPipe3;
 
             clockRot = new FlxExtendedSprite();
-            clockRot.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            clockRot.frame = 23;
+            clockRot.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            clockRot.frame = Common.clockWiseButton;
             clockRot.visible = false;
             clockRot.enableMouseClicks(true);
             counterClockRot = new FlxExtendedSprite();
-            counterClockRot.loadGraphic(PlayState.MapTile, true, false, 64, 64, false);
-            counterClockRot.frame = 24;
+            counterClockRot.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            counterClockRot.frame = Common.counterClockButton;
             counterClockRot.visible = false;
             counterClockRot.enableMouseClicks(true);
 
@@ -78,48 +78,61 @@ package
             var typeClicked:uint;
             if (forestStraight.overlapsPoint(point))
             {
-                typeClicked = 15;
+                typeClicked = Common.forestPipe1;
             }
             else if (forestCorner.overlapsPoint(point))
             {
-                typeClicked = 16;
+                typeClicked = Common.forestPipe2;
             }
             else if (forestQuad.overlapsPoint(point))
             {
-                typeClicked = 17;
+                typeClicked = Common.forestPipe4;
             }
             else if (forestThree.overlapsPoint(point))
             {
-                typeClicked = 18;
+                typeClicked = Common.forestPipe3;
             }
             else if (cityStraight.overlapsPoint(point))
             {
-                typeClicked = 19;
+                typeClicked = Common.cityPipe1;
             }
             else if (cityCorner.overlapsPoint(point))
             {
-                typeClicked = 20;
+                typeClicked = Common.cityPipe2;
             }
             else if (cityThree.overlapsPoint(point))
             {
-                typeClicked = 21;
+                typeClicked = Common.cityPipe3;
             }
             else if (cityQuad.overlapsPoint(point))
             {
-                typeClicked = 22;
+                typeClicked = Common.cityPipe4;
             }
             return typeClicked;
         }
 
         public function showTileHandlers(point:FlxPoint, tileLocation:FlxPoint):void
         {
-            clockRot.x = point.x + 64;
-            counterClockRot.x = point.x - 64;
-            clockRot.y = point.y;
-            counterClockRot.y = point.y;
+            var startX:uint = (Math.floor((point.x-10)/64) * 64) + 10;
+            var startY:uint = (Math.floor((point.y - 10)/64) * 64) + 10;
+            clockRot.x = startX - 32;
+            counterClockRot.x = startX + 32;
+            clockRot.y = startY;
+            counterClockRot.y = startY;
             clockRot.visible = true;
             counterClockRot.visible = true;
-            // clockRot.mouseReleasedCallBack
+            clockRot.mouseReleasedCallback = clockwiseHandler;
+            counterClockRot.mouseReleasedCallback = counterClockwiseHandler;
+        }
+
+        protected function clockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void
+        {
+            Common.playerGrid.rotateTile(true);
+        }
+
+        protected function counterClockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void
+        {
+            Common.playerGrid.rotateTile(false);
         }
     }
 }

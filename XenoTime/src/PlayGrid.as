@@ -6,8 +6,7 @@ package
     public class PlayGrid extends FlxGroup
     {
         protected var tiles:Array;
-        protected var TILEWIDTH:uint = 64;
-        protected var TILEHEIGHT:uint = 64;
+        public var activeTile:FlxPoint;
 
         public function PlayGrid(width:uint, height:uint, x:uint, y:uint, tileData:Array)
         {
@@ -21,8 +20,8 @@ package
             {
                 for (var j:int=0; j<height; j++)
                 {
-                    var tempTile:Tile = new Tile(i*TILEWIDTH + x, j*TILEWIDTH + y);
-                    tempTile.loadGraphic(PlayState.MapTile, true, false, TILEWIDTH, TILEHEIGHT, false);
+                    var tempTile:Tile = new Tile(i*Common.TILEWIDTH + x, j*Common.TILEWIDTH + y, Common.MapTile, tileData[j*height +i]);
+                    tempTile.loadGraphic(Common.MapTile, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
                     tempTile.frame = tileData[j*height +i];
                     tempTile.setSides(tileData[j*height + i]);
                     tiles[i][j] = tempTile
@@ -33,11 +32,25 @@ package
 
         public function changeTile(point:FlxPoint, tileType:uint):void
         {
-            var tileX:uint = Math.floor(point.x/TILEWIDTH);
-            var tileY:uint = Math.floor(point.y/TILEHEIGHT);
+            if (tileType == 0) {return;}
+            var tileX:uint = Math.floor((point.x-10)/Common.TILEWIDTH);
+            var tileY:uint = Math.floor((point.y-10)/Common.TILEHEIGHT);
 
             tiles[tileX][tileY].frame = tileType;
             tiles[tileX][tileY].setSides(tileType);
+            activeTile = new FlxPoint(tileX, tileY);
+        }
+
+        public function rotateTile(clockWise:Boolean):void
+        {
+            if (clockWise == true)
+            {
+                tiles[activeTile.x][activeTile.y].rotateClockwise();
+            }
+            else
+            {
+                tiles[activeTile.x][activeTile.y].rotateCounterClockwise();
+            }
         }
     }
 }

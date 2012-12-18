@@ -9,11 +9,15 @@ package
         protected var right:Boolean = false;
         protected var top:Boolean = false;
         protected var bottom:Boolean = false;
+        protected var startFrame:uint;
 
-         public function Tile(X:Number, Y:Number)
+         public function Tile(X:Number, Y:Number, Graphic:Class, tileType:uint)
         {
             this.x = X;
             this.y = Y;
+            this.loadGraphic(Graphic, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
+            this.frame = tileType;
+            startFrame = tileType;
         }
 
         public function setSides(tileType:uint):void
@@ -41,6 +45,40 @@ package
                 bottom = true;
                 top = true;
             }
+        }
+
+        public function rotateClockwise():void
+        {
+            if (this.frame == startFrame + 3)
+            {
+                this.frame = startFrame;
+            }
+            else
+            {
+                this.frame = this.frame + 1
+            }
+            var temp:Boolean = top;
+            top = right;
+            right = bottom;
+            bottom = left
+            left = temp;
+        }
+
+        public function rotateCounterClockwise():void
+        {
+            if (this.frame == startFrame)
+            {
+                this.frame = startFrame + 3;
+            }
+            else
+            {
+                this.frame = this.frame - 1;
+            }
+            var temp:Boolean = top;
+            top = left;
+            left = bottom;
+            bottom = right;
+            right = temp;
         }
     }
 }

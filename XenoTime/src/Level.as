@@ -39,27 +39,21 @@ package
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0);
-        
-        protected var background:PlayGrid;
-        protected var obstacleMap:PlayGrid;
-        protected var playerGrid:PlayGrid;
-        protected var TILEHEIGHT:uint = 64;
-        protected var TILEWIDTH:uint = 64;
-        
+
         public function Level()
         {
-            background = new PlayGrid(10,10,10,10,backLevel);
-            obstacleMap = new PlayGrid(10,10,10,10,obstacles);
-            playerGrid = new PlayGrid(10,10,10,10,blank);
+            Common.background = new PlayGrid(10,10,10,10,backLevel);
+            Common.obstacleMap = new PlayGrid(10,10,10,10,obstacles);
+            Common.playerGrid = new PlayGrid(10,10,10,10,blank);
             
-            add(background);
-            add(obstacleMap);
-            add(playerGrid);
+            add(Common.background);
+            add(Common.obstacleMap);
+            add(Common.playerGrid);
         }
         
         public function placeTile(point:FlxPoint, tileType:uint):Boolean
         {
-            playerGrid.changeTile(point, tileType);
+            Common.playerGrid.changeTile(point, tileType);
             // var collisionPlaced:Boolean = collisionGrid.changeTile(point, tileType);
             // return (playerPlaced && collisionPlaced);
             return true;
