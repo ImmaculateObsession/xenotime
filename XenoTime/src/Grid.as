@@ -11,7 +11,6 @@ package
         public function Grid(data:Array):void
         {
             this.loadMap(FlxTilemap.arrayToCSV(data, 11), PlayState.MapTile, TILEWIDTH, TILEHEIGHT, FlxTilemap.OFF, 0, 0);
-            trace(this._tileObjects.length);
         }
         
         override public function update():void

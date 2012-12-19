@@ -44,14 +44,14 @@ package
                 Common.mouseTile.frame = handledTile;
                 tileType = handledTile
             }
-            var placed:Boolean = Common.level.placeTile(point, tileType);
+            Common.level.placeTile(point, tileType);
             // var placed:Boolean = false
-            if (placed == true)
+            if (Common.canPlaceTile == false && Common.activePoint)
             {
-                Common.hud.showTileHandlers(point, point);
+                Common.hud.showTileHandlers(Common.activePoint);
                 Common.mouseTile.frame = 0;
                 FlxG.mouse.show();
-                tileType = 0;
+                // tileType = 0;
             }
         }
     }

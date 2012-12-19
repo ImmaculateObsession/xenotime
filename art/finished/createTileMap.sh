@@ -17,7 +17,8 @@ for IMAGE in `cat $EXP_LIST`; do
     if [[ "$IMAGE" == *pipe* ]]
         then
             for angle in 90 180 270; do
-                convert -rotate $angle $IMAGE auto_gen/${IMAGE%%.*}.$angle.png
+                name=$((angle / 90))
+                convert -rotate $angle $IMAGE auto_gen/${IMAGE%%.*}.$name.png
             done
     fi
     convert -crop 64x64 $IMAGE auto_gen/$IMAGE
@@ -29,5 +30,4 @@ for I in $OUTPUT_ORDER; do
 done
 HEIGHT=$(((1+(NUMBER_IMAGES/(MAX_WIDTH/64)))))
 WIDTH=$((MAX_WIDTH/64))
-
 montage $OUTPUT_ORDER -tile $WIDTH"x"$HEIGHT -geometry 64x64 -background none $OUTFILE

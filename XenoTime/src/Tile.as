@@ -17,7 +17,6 @@ package
             this.y = Y;
             this.loadGraphic(Graphic, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
             this.frame = tileType;
-            startFrame = tileType;
         }
 
         public function setSides(tileType:uint):void
@@ -49,13 +48,13 @@ package
 
         public function rotateClockwise():void
         {
-            if (this.frame == startFrame + 3)
+            if (this.frame == startFrame)
             {
-                this.frame = startFrame;
+                this.frame = startFrame - 3;
             }
             else
             {
-                this.frame = this.frame + 1
+                this.frame = this.frame + 1;
             }
             var temp:Boolean = top;
             top = right;
@@ -66,9 +65,9 @@ package
 
         public function rotateCounterClockwise():void
         {
-            if (this.frame == startFrame)
+            if (this.frame == startFrame - 3)
             {
-                this.frame = startFrame + 3;
+                this.frame = startFrame;
             }
             else
             {
@@ -79,6 +78,15 @@ package
             left = bottom;
             bottom = right;
             right = temp;
+        }
+
+        public function setFrame(tileType:uint):void
+        {
+            if (this.frame == 0)
+            {
+                startFrame = tileType;
+            }
+            this.frame = tileType;
         }
     }
 }

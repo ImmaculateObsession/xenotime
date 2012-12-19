@@ -108,10 +108,14 @@ package
             {
                 typeClicked = Common.cityPipe4;
             }
+            if (typeClicked) {
+                Common.canPlaceTile = true;
+                Common.activePoint = null;
+            }
             return typeClicked;
         }
 
-        public function showTileHandlers(point:FlxPoint, tileLocation:FlxPoint):void
+        public function showTileHandlers(point:FlxPoint):void
         {
             var startX:uint = (Math.floor((point.x-10)/64) * 64) + 10;
             var startY:uint = (Math.floor((point.y - 10)/64) * 64) + 10;

@@ -16,6 +16,9 @@ package
         public static var obstacleMap:PlayGrid;
         public static var playerGrid:PlayGrid;
 
+        public static var canPlaceTile:Boolean = false;
+        public static var activePoint:FlxPoint;
+
         public static var blankTile:uint = 0;
         public static var bgTile1:uint = 1;
         public static var bgTile2:uint = 2;

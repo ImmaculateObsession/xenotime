@@ -22,8 +22,8 @@ package
             0,0,8,0,0,0,0,14,0,0,
             0,0,0,11,12,0,0,0,0,0,
             0,0,0,0,0,0,0,7,0,0,
-            0,0,0,0,0,0,0,8,0,0,
-            0,0,0,13,0,0,0,0,0,0,
+            7,0,0,0,0,0,0,8,0,0,
+            8,0,0,13,0,0,0,0,0,0,
             0,0,0,14,0,9,10,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,13,0,0,0,0,0,11,12,0,
@@ -51,12 +51,14 @@ package
             add(Common.playerGrid);
         }
         
-        public function placeTile(point:FlxPoint, tileType:uint):Boolean
+        public function placeTile(point:FlxPoint, tileType:uint):void
         {
-            Common.playerGrid.changeTile(point, tileType);
+            if (Common.canPlaceTile)
+            {
+                Common.playerGrid.changeTile(point, tileType);
             // var collisionPlaced:Boolean = collisionGrid.changeTile(point, tileType);
             // return (playerPlaced && collisionPlaced);
-            return true;
+            }
         }
         
     }
