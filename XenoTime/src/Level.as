@@ -53,11 +53,9 @@ package
         
         public function placeTile(point:FlxPoint, tileType:uint):void
         {
-            if (Common.canPlaceTile)
+            if (Common.canPlaceTile && Common.playerGrid.isInGrid(point) && (Common.obstacleMap.getTileType(point) == 0))
             {
                 Common.playerGrid.changeTile(point, tileType);
-            // var collisionPlaced:Boolean = collisionGrid.changeTile(point, tileType);
-            // return (playerPlaced && collisionPlaced);
             }
         }
         

@@ -45,13 +45,11 @@ package
                 tileType = handledTile
             }
             Common.level.placeTile(point, tileType);
-            // var placed:Boolean = false
             if (Common.canPlaceTile == false && Common.activePoint)
             {
                 Common.hud.showTileHandlers(Common.activePoint);
                 Common.mouseTile.frame = 0;
                 FlxG.mouse.show();
-                // tileType = 0;
             }
         }
     }
