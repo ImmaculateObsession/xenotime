@@ -9,36 +9,45 @@ package
         protected var right:Boolean = false;
         protected var top:Boolean = false;
         protected var bottom:Boolean = false;
+        protected var closed:Boolean = true;
         protected var startFrame:uint;
+        public var gridX:uint;
+        public var gridY:uint;
 
-         public function Tile(X:Number, Y:Number, Graphic:Class = null, tileType:uint = 0)
+         public function Tile(X:Number, Y:Number, Graphic:Class, tileType:uint, coordX:uint, coordY:uint)
         {
             this.x = X;
             this.y = Y;
-            //this.loadGraphic(Graphic, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
-            //this.frame = tileType;
+            this.loadGraphic(Graphic, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
+            this.frame = tileType;
+            gridX = coordX;
+            gridY = coordY;
         }
 
         public function setSides(tileType:uint):void
         {
-            if ((tileType == 15) || (tileType == 19))
+            if ((tileType == Common.forestPipe1) || (tileType == Common.cityPipe1))
             {
+                closed = false;
                 left = true;
                 right = true;
             }
-            if ((tileType) == 16 || (tileType == 20))
+            if ((tileType) == Common.forestPipe2 || (tileType == Common.cityPipe2))
             {
+                closed = false;
                 left = true;
                 bottom = true;
             }
-            if ((tileType == 17) || (tileType == 21))
+            if ((tileType == Common.forestPipe3) || (tileType == Common.cityPipe4))
             {
+                closed = false;
                 left = true;
                 right = true;
                 bottom = true;
             }
-            if ((tileType == 18) || (tileType == 22))
+            if ((tileType == Common.forestPipe4) || (tileType == Common.cityPipe4))
             {
+                closed = false;
                 left = true;
                 right = true;
                 bottom = true;
@@ -82,16 +91,36 @@ package
 
         public function setFrame(tileType:uint):void
         {
-            if (this.frame == 0)
+            if (this.frame != tileType)
             {
                 startFrame = tileType;
             }
             this.frame = tileType;
         }
 
-        public function getType():uint
+        public function isClosed():Boolean
         {
-            return startFrame;
+            return closed;
+        }
+
+        public function rightOpen():Boolean
+        {
+            return right;
+        }
+
+        public function leftOpen():Boolean
+        {
+            return left;
+        }
+
+        public function topOpen():Boolean
+        {
+            return top;
+        }
+
+        public function bottomOpen():Boolean
+        {
+            return bottom;
         }
     }
 }

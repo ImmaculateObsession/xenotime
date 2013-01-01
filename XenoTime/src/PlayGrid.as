@@ -2,51 +2,42 @@ package
 {
     import org.flixel.FlxGroup;
     import org.flixel.FlxPoint;
-    import org.flixel.FlxG;
 
     public class PlayGrid extends FlxGroup
     {
         protected var tiles:Array;
-        protected var tileData:Array;
         protected var gridWidth:uint;
         protected var gridHeight:uint;
         protected var gridStart:FlxPoint;
         protected var gridEnd:FlxPoint;
         public var activeTile:FlxPoint;
 
-        public function PlayGrid(width:uint = 0, height:uint = 0, x:uint = 0, y:uint = 0, tileData:Array = null, doBuildTiles:Boolean = true)
+        public function PlayGrid(width:uint, height:uint, x:uint, y:uint, tileData:Array)
         {
-            this.tileData = tileData;
             gridWidth = width;
             gridHeight = height;
             gridStart = new FlxPoint(x, y);
             gridEnd = new FlxPoint(x + width * Common.TILEWIDTH, y + height * Common.TILEHEIGHT);
-
             tiles = new Array(width);
-
             for (var i:int=0; i<width; i++)
             {
                 tiles[i] = new Array(height);
+            }
+
+            for (i=0; i<width; i++)
+            {
                 for (var j:int=0; j<height; j++)
                 {
-                    tiles[i][j] = new Tile(i*Common.TILEWIDTH + x, j*Common.TILEWIDTH + y);
-                    tiles[i][j].loadGraphic(Common.MapTile, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
+                    var tileX = i*Common.TILEWIDTH + x;
+                    var tileY = j*Common.TILEWIDTH + y;
+                    var gridX = Math.floor((tileX - x)/Common.TILEWIDTH);
+                    var gridY = Math.floor((tileY - y)/Common.TILEHEIGHT);
+                    var tempTile:Tile = new Tile(tileX, tileY, Common.MapTile, tileData[j*height +i], gridX, gridY);
+                    tempTile.loadGraphic(Common.MapTile, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
+                    tempTile.setFrame(tileData[j*height +i]);
+                    tempTile.setSides(tileData[j*height + i]);
+                    tiles[i][j] = tempTile; 
                     add(tiles[i][j]);
-                }
-            }
-            refreshTiles();
-
-        }
-
-        // Load the right image and sides for each tile
-        public function refreshTiles():void
-        {
-            for (var i:int=0; i<gridWidth; i++)
-            {
-                for (var j:int=0; j<gridHeight; j++)
-                {
-                    tiles[i][j].setFrame(tileData[j*gridHeight +i]);
-                    tiles[i][j].setSides(tileData[j*gridHeight + i]);
                 }
             }
         }
@@ -74,6 +65,12 @@ package
             }
         }
 
+        public function getTileType(point:FlxPoint):uint
+        {
+            var tileIndex:FlxPoint = translatePoint(point);
+            return tiles[tileIndex.x][tileIndex.y].frame;
+        }
+
         protected function translatePoint(point:FlxPoint):FlxPoint
         {
             var tileX:uint = Math.floor((point.x-10)/Common.TILEWIDTH);
@@ -86,35 +83,111 @@ package
             return ((point.x > gridStart.x && point.x <= gridEnd.x) && (point.y > gridStart.y && point.y <= gridEnd.y));
         }
 
-        public function getTile(i:int, j:int):Tile
+        public function isPath(start:FlxPoint, end:FlxPoint):Boolean
         {
-            return tiles[i][j];
+            trace(start.x, start.y);
+            trace(end.x, end.y);
+            var startTile:FlxPoint = translatePoint(start);
+            var endTile:FlxPoint = translatePoint(end);
+            return pathWalker(startTile, endTile);
         }
 
-        public function getTileType(point:FlxPoint):uint
+        protected function pathWalker(start:FlxPoint, end:FlxPoint):Boolean
         {
-            var tileIndex:FlxPoint = translatePoint(point);
-            return tiles[tileIndex.x][tileIndex.y].frame;
-
-        }
-
-        public function getTileData():Array
-        {
-            var retData:Array = new Array();
-            for (var j:int=0; j<gridHeight; j++)
+            var path:Array = [start]
+            var index:uint = 0;
+            var hasSolution:Boolean;
+            trace(start.x, start.y);
+            trace(end.x, end.y);
+            trace("index =", index);
+            while (path.length != 0)
             {
-                for (var i:int=0; i<gridWidth; i++)
+                trace("index in loop = ", index);
+                trace("path length = ", path.length);
+                trace(path[index].x, path[index].y);
+                if (path[index].x < 0 || path[index].y < 0)
                 {
-                    retData.push(tiles[i][j].getType());
+                    trace(index, "off end");
+                    path.pop();
+                    index--;
+                    continue;
+                }
+                var tile = tiles[path[index].x][path[index].y]
+                if (tile.gridX == end.x && tile.gridY == end.y)
+                {
+                    hasSolution = true;
+                    trace("We did it!");        
+                    break;
+                }
+                if (tile.isClosed())
+                {
+                    trace(index, "Tile is closed");
+                    path.pop();
+                    index--;
+                    continue;
+                }
+                if (tile.rightOpen())
+                {
+                    trace(index, "Pushing right");
+                    path.push(new FlxPoint(tile.gridX + 1, tile.gridY));
+                    index++;
+                    continue;
+                }
+                if (tile.bottomOpen())
+                {
+                    trace(index, "Pushing bottom");
+                    path.push(new FlxPoint(tile.gridX, tile.gridY + 1));
+                    index++;
+                    continue;
+                }
+                if (tile.topOpen())
+                {
+                    trace(index, "Pushing top");
+                    path.push(new FlxPoint(tile.gridX, tile.gridY - 1));
+                    index++;
+                    continue;
+                }
+                if (tile.leftOpen())
+                {
+                    trace(index, "Pushing left");
+                    path.push(new FlxPoint(tile.gridX - 1, tile.gridY));
+                    index++;
+                    continue;
                 }
             }
-            return retData;        
+            if (path.length != 0)
+            {
+                return true;
+            }
+            return false;
         }
 
-        public function setTileData(newData:Array):void
-        {
-            tileData = newData;
-        }
-
+        // protected function pathWalker(start:FlxPoint, end:FlxPoint):Boolean
+        // {
+        //     if (start.x == end.x && start.y == end.y)
+        //     {
+        //         return true;
+        //     }
+        //     if (tiles[start.x][start.y].isClosed())
+        //     {
+        //         return false;
+        //     }
+        //     if (tiles[start.x][start.y].rightOpen())
+        //     {
+        //         return pathWalker(new FlxPoint(start.x + 1, start.y), end);
+        //     }
+        //     if (tiles[start.x][start.y].bottomOpen())
+        //     {
+        //         return pathWalker(new FlxPoint(start.x, start.y + 1), end);
+        //     }
+        //     if (tiles[start.x][start.y].topOpen())
+        //     {
+        //         return pathWalker(new FlxPoint(start.x, start.y - 1), end);
+        //     }
+        //     if (tiles[start.x][start.y].leftOpen())
+        //     {
+        //         return pathWalker(new FlxPoint(start.x - 1, start.y), end);
+        //     }
+        // }
     }
 }
