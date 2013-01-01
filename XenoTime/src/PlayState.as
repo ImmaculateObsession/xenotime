@@ -5,7 +5,6 @@ package
 
     public class PlayState extends FlxState
     {
-
         protected var tileType:uint = 0;
 
         override public function create():void
@@ -43,6 +42,20 @@ package
                 FlxG.mouse.hide();
                 Common.mouseTile.frame = handledTile;
                 tileType = handledTile
+            }
+            else
+            {
+                switch (handledTile)
+                {
+                    case 1:
+                        Common.level.save();
+                        break;
+                    case 2:
+                        Common.level.load();
+                        break;
+                    default:
+                        break;
+                }
             }
             Common.level.placeTile(point, tileType);
             if (Common.canPlaceTile == false && Common.activePoint)

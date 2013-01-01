@@ -8,6 +8,7 @@ package
         public function XenoTime()
         {
             super(1024,768,PlayState,1);
+            forceDebugger = true;
         }
     }
 }

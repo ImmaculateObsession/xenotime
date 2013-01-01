@@ -11,12 +11,12 @@ package
         protected var bottom:Boolean = false;
         protected var startFrame:uint;
 
-         public function Tile(X:Number, Y:Number, Graphic:Class, tileType:uint)
+         public function Tile(X:Number, Y:Number, Graphic:Class = null, tileType:uint = 0)
         {
             this.x = X;
             this.y = Y;
-            this.loadGraphic(Graphic, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
-            this.frame = tileType;
+            //this.loadGraphic(Graphic, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
+            //this.frame = tileType;
         }
 
         public function setSides(tileType:uint):void
@@ -87,6 +87,11 @@ package
                 startFrame = tileType;
             }
             this.frame = tileType;
+        }
+
+        public function getType():uint
+        {
+            return startFrame;
         }
     }
 }

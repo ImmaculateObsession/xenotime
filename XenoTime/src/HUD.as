@@ -22,6 +22,10 @@ package
         protected var clockRot:FlxExtendedSprite;
         protected var counterClockRot:FlxExtendedSprite;
 
+        //TEMP buttons for saving and loading
+        protected var saveButton:FlxExtendedSprite;
+        protected var loadButton:FlxExtendedSprite;
+
         public function HUD()
         {
             forestStraight = new FlxSprite(800, 100);
@@ -59,6 +63,21 @@ package
             counterClockRot.frame = Common.counterClockButton;
             counterClockRot.visible = false;
             counterClockRot.enableMouseClicks(true);
+
+            //TEMP save and load buttons for testing save and load
+            saveButton = new FlxExtendedSprite(700, 20);
+            saveButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            saveButton.frame = 38;
+            saveButton.visible = true;
+            saveButton.enableMouseClicks(true);
+            loadButton = new FlxExtendedSprite(900, 20);
+            loadButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            loadButton.frame = 39;
+            loadButton.visible = true;
+            loadButton.enableMouseClicks(true);
+
+            add(saveButton);
+            add(loadButton);
 
             add(clockRot);
             add(counterClockRot);
@@ -111,6 +130,17 @@ package
             if (typeClicked) {
                 Common.canPlaceTile = true;
                 Common.activePoint = null;
+            }
+
+            // Hack to get save buttons in without messing
+            // with tile selection
+            if (saveButton.overlapsPoint(point))
+            {
+                typeClicked = 1;
+            }
+            else if (loadButton.overlapsPoint(point))
+            {
+                typeClicked = 2;
             }
             return typeClicked;
         }
