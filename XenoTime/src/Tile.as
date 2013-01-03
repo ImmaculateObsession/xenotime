@@ -122,30 +122,5 @@ package
         {
             return bottom;
         }
-
-        public function isClosed():Boolean
-        {
-            return closed;
-        }
-
-        public function rightOpen():Boolean
-        {
-            return right;
-        }
-
-        public function leftOpen():Boolean
-        {
-            return left;
-        }
-
-        public function topOpen():Boolean
-        {
-            return top;
-        }
-
-        public function bottomOpen():Boolean
-        {
-            return bottom;
-        }
     }
 }
