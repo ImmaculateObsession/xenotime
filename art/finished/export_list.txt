@@ -14,5 +14,11 @@ city_pipe1.png
 city_pipe2.png
 city_pipe3.png
 city_pipe4.png
+city_special_tile1.png 
+city_special_tile2.png 
+forest_special_tile1.png 
+forest_special_tile2.png
 arrow1.png
-arrow2.png
+arrow1.png
+delete.png
+
