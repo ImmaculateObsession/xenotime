@@ -1,0 +1,10 @@
+{
+    "folders":
+    [
+        {
+            "path": ".",
+            "name": "XenoTime",
+            "file_exclude_patterns": ["*.png", "*.jpg", "*.sai", "*.psd", "*.gif", "*.sublime-workspace", "*.swf"]
+        }
+    ]
+}

@@ -10,6 +10,8 @@ forest_pipe1.png
 forest_pipe2.png
 forest_pipe3.png
 forest_pipe4.png
+forest_special_tile1.png
+forest_special_tile2.png
 city_pipe1.png
 city_pipe2.png
 city_pipe3.png
@@ -19,6 +21,5 @@ city_special_tile2.png
 forest_special_tile1.png 
 forest_special_tile2.png
 arrow1.png
-arrow1.png
+arrow2.png
 delete.png
-
