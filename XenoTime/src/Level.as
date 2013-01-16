@@ -78,6 +78,7 @@ package
             if (Common.canPlaceTile && Common.playerGrid.isInGrid(point) && (Common.obstacleMap.getTileType(point) == 0))
             {
                 Common.playerGrid.changeTile(point, tileType);
+                trace(Common.playerGrid.isPath(new FlxPoint(15,15), new FlxPoint(300, 15)))
             }
         }
         

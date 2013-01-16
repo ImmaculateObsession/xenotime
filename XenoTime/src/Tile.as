@@ -4,15 +4,15 @@ package
     
     public class Tile extends FlxSprite
     {
-
-        protected var left:Boolean = false;
-        protected var right:Boolean = false;
-        protected var top:Boolean = false;
-        protected var bottom:Boolean = false;
         protected var closed:Boolean = true;
+        public var sides:Array;
+        public var sides_copy:Array;
         protected var startFrame:uint;
         public var gridX:uint;
         public var gridY:uint;
+        public var explored:Boolean = false;
+        public var parent:Tile = null;
+        public var isParent:Boolean = false;
 
          public function Tile(X:Number, Y:Number, Graphic:Class, tileType:uint, coordX:uint, coordY:uint)
         {
@@ -22,36 +22,29 @@ package
             this.frame = tileType;
             gridX = coordX;
             gridY = coordY;
+
+            // the array of sides goes (like CSS): top right bottom left)
+            sides = [false, false, false, false];
         }
 
         public function setSides(tileType:uint):void
         {
+            closed = false;
             if ((tileType == Common.forestPipe1) || (tileType == Common.cityPipe1))
             {
-                closed = false;
-                left = true;
-                right = true;
+                sides = [false, true, false, true];
             }
             if ((tileType) == Common.forestPipe2 || (tileType == Common.cityPipe2))
             {
-                closed = false;
-                left = true;
-                bottom = true;
+                sides = [false, false, true, true];
             }
             if ((tileType == Common.forestPipe3) || (tileType == Common.cityPipe4))
             {
-                closed = false;
-                left = true;
-                right = true;
-                bottom = true;
+                sides = [false, true, true, true];
             }
             if ((tileType == Common.forestPipe4) || (tileType == Common.cityPipe4))
             {
-                closed = false;
-                left = true;
-                right = true;
-                bottom = true;
-                top = true;
+                sides = [true, true, true, true];
             }
         }
 
@@ -65,11 +58,11 @@ package
             {
                 this.frame = this.frame + 1;
             }
-            var temp:Boolean = top;
-            top = right;
-            right = bottom;
-            bottom = left
-            left = temp;
+            var temp:Boolean = sides[0];
+            sides[0] = sides[1];
+            sides[1] = sides[2];
+            sides[2] = sides[3];
+            sides[3] = temp;
         }
 
         public function rotateCounterClockwise():void
@@ -82,11 +75,11 @@ package
             {
                 this.frame = this.frame - 1;
             }
-            var temp:Boolean = top;
-            top = left;
-            left = bottom;
-            bottom = right;
-            right = temp;
+            var temp:Boolean = sides[0];
+            sides[0] = sides[3];
+            sides[3] = sides[2];
+            sides[2] = sides[1];
+            sides[1] = temp;
         }
 
         public function setFrame(tileType:uint):void
@@ -98,6 +91,11 @@ package
             this.frame = tileType;
         }
 
+        public function getType():uint
+        {
+            return this.frame;
+        }
+
         public function isClosed():Boolean
         {
             return closed;
@@ -105,22 +103,22 @@ package
 
         public function rightOpen():Boolean
         {
-            return right;
+            return sides[1];
         }
 
         public function leftOpen():Boolean
         {
-            return left;
+            return sides[3];
         }
 
         public function topOpen():Boolean
         {
-            return top;
+            return sides[0];
         }
 
         public function bottomOpen():Boolean
         {
-            return bottom;
+            return sides[2];
         }
     }
 }

@@ -17,6 +17,7 @@ package
 
             Common.mouseTile = new FlxSprite();
             Common.mouseTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            Common.emptyTile = new Tile(0,0,Common.MapTile,0,0,0);
             add(Common.level);
             add(Common.mouseTile);
             add(Common.hud);

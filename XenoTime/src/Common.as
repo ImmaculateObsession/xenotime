@@ -11,6 +11,7 @@ package
         public static var hud:HUD;
         public static var level:Level;
         public static var mouseTile:FlxSprite;
+        public static var emptyTile:Tile;
 
         public static var background:PlayGrid;
         public static var obstacleMap:PlayGrid;
