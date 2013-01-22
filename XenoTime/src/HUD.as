@@ -3,6 +3,7 @@ package
     import org.flixel.FlxSprite;
     import org.flixel.FlxGroup;
     import org.flixel.FlxPoint;
+    import org.flixel.FlxText;
     import org.flixel.plugin.photonstorm.FlxExtendedSprite;
 
     public class HUD extends FlxGroup
@@ -15,6 +16,8 @@ package
         protected var cityCorner:FlxSprite;
         protected var cityQuad:FlxSprite;
         protected var cityThree:FlxSprite;
+
+        protected var logo:FlxSprite;
 
         public var cityTile:FlxSprite;
         public var plantTile:FlxSprite;
@@ -76,6 +79,9 @@ package
             loadButton.visible = true;
             loadButton.enableMouseClicks(true);
 
+            logo = new FlxSprite(800, 650);
+            logo.loadGraphic(Common.Logo, true, false, 100, 100, false);
+
             add(saveButton);
             add(loadButton);
 
@@ -90,6 +96,7 @@ package
             add(cityCorner);
             add(cityQuad);
             add(cityThree);
+            add(logo);
         }
 
         public function handleClick(point:FlxPoint):uint
@@ -130,6 +137,7 @@ package
             if (typeClicked) {
                 Common.canPlaceTile = true;
                 Common.activePoint = null;
+                hideTileHandlers();
             }
 
             // Hack to get save buttons in without messing
@@ -144,7 +152,8 @@ package
             }
             return typeClicked;
         }
-
+        // Show the rotation and deletion buttons when a tile is placed.
+        // TODO: Remove magic numbers from math.
         public function showTileHandlers(point:FlxPoint):void
         {
             var startX:uint = (Math.floor((point.x-10)/64) * 64) + 10;
@@ -159,6 +168,15 @@ package
             counterClockRot.mouseReleasedCallback = counterClockwiseHandler;
         }
 
+        public function hideTileHandlers():void {
+            clockRot.visible = false;
+            counterClockRot.visible = false;
+            clockRot.x = -100;
+            clockRot.y = -100;
+            counterClockRot.x = -100;
+            counterClockRot.y = -100;
+        }
+
         protected function clockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void
         {
             Common.playerGrid.rotateTile(true);
@@ -167,6 +185,10 @@ package
         protected function counterClockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void
         {
             Common.playerGrid.rotateTile(false);
+        }
+
+        public function showWin():void {
+            add(new FlxText(100, 700, 100, "You win!"));
         }
     }
 }

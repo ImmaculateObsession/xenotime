@@ -22,6 +22,7 @@ package
             this.frame = tileType;
             gridX = coordX;
             gridY = coordY;
+            closed = true;
 
             // the array of sides goes (like CSS): top right bottom left)
             sides = [false, false, false, false];

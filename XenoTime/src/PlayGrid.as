@@ -31,10 +31,10 @@ package
                 tiles[i] = new Array(height);
                 for (var j:int=0; j<height; j++)
                 {
-                    var tileX = i*Common.TILEWIDTH + x;
-                    var tileY = j*Common.TILEWIDTH + y;
-                    var gridX = Math.floor((tileX - x)/Common.TILEWIDTH);
-                    var gridY = Math.floor((tileY - y)/Common.TILEHEIGHT);
+                    var tileX:uint = i*Common.TILEWIDTH + x;
+                    var tileY:uint = j*Common.TILEWIDTH + y;
+                    var gridX:uint = Math.floor((tileX - x)/Common.TILEWIDTH);
+                    var gridY:uint = Math.floor((tileY - y)/Common.TILEHEIGHT);
                     tiles[i][j] = new Tile(tileX, tileY, Common.MapTile, tileData[j*height +i], gridX, gridY);
                     tiles[i][j].loadGraphic(Common.MapTile, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
                     add(tiles[i][j]);
@@ -123,21 +123,21 @@ package
 
         public function isPath(start:FlxPoint, end:FlxPoint):Boolean
         {
-            var startPoint:FlxPoint = translatePoint(start);
-            var endPoint:FlxPoint = translatePoint(end);
-            var startTile:Tile = tiles[startPoint.x][startPoint.y];
+            var startTile:Tile = tiles[start.x][start.y];
             startTile.parent = Common.emptyTile;
-            var endTile:Tile = tiles[endPoint.x][endPoint.y];
+            var endTile:Tile = tiles[end.x][end.y];
             return pathWalker(startTile, endTile);
         }
 
         protected function pathWalker(start:Tile, end:Tile):Boolean
         {
             var closed:Boolean = start.isClosed();
-            if (closed == false)
+            var type:uint = start.getType();
+            if (closed == true || type == 0)
             {
-                path.push(start);
+                return false;
             }
+            path.push(start);
             if (start == end){
                 return true;
             }
@@ -149,7 +149,7 @@ package
                 {
                     neighbor.parent = start;
                     start.isParent = true;
-                    var continuePath = pathWalker(neighbor, end);
+                    var continuePath:Boolean = pathWalker(neighbor, end);
                 }
                 if (continuePath == true)
                 {
@@ -165,21 +165,34 @@ package
         protected function findNeighbors(tile:Tile):Array
         {
             var neighbor_array:Array = []
-            if (tile.sides[1] == true && tile.gridX != gridWidth)
+            var add:Tile;
+            if (tile.sides[1] == true && tile.gridX != gridWidth - 1)
             {
-                neighbor_array.push(tiles[tile.gridX + 1][tile.gridY]);
+                add = tiles[tile.gridX + 1][tile.gridY];
+                if (add.sides[3] == true) {
+                    neighbor_array.push(add);
+                }
             }
-            if (tile.sides[2] == true && tile.gridY != gridHeight)
+            if (tile.sides[2] == true && tile.gridY != gridHeight - 1)
             {
-                neighbor_array.push(tiles[tile.gridX][tile.gridY + 1]);
+                add = tiles[tile.gridX][tile.gridY + 1];
+                if (add.sides[0] == true) {
+                    neighbor_array.push(add);
+                }
             }
             if (tile.sides[0] == true && tile.gridY != 0)
             {
-                neighbor_array.push(tiles[tile.gridX][tiles.gridY - 1]);
+                add = tiles[tile.gridX][tile.gridY - 1];
+                if (add.sides[2] == true) {
+                    neighbor_array.push(add);
+                }
             }
             if (tile.sides[3] == true && tile.gridX != 0)
             {
-                neighbor_array.push(tiles[tile.gridX - 1][tiles.gridY]);
+                add = tiles[tile.gridX - 1][tile.gridY];
+                if (add.sides[1] == true) {
+                    neighbor_array.push(add);
+                }
             }
             return neighbor_array;
         }

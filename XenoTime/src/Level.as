@@ -20,7 +20,7 @@ package
             1,2,1,2,1,2,1,2,1,2,
             3,4,3,4,3,4,3,4,3,4);
         protected var obstacles:Array = new Array(
-            0,0,0,0,0,0,0,0,0,0,
+            0,0,7,0,0,0,0,13,0,0,
             0,0,8,0,0,0,0,14,0,0,
             0,0,0,11,12,0,0,0,0,0,
             0,0,0,0,0,0,0,7,0,0,
@@ -41,7 +41,9 @@ package
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0);
-        
+
+        protected var startPoint:FlxPoint;
+        protected var endPoint:FlxPoint;
 
         //holds the save object
         private static var saveState:FlxSave;
@@ -49,12 +51,15 @@ package
         private static var tempSaveData:Array;
         //if the level has loaded correctly
         private var hasLoaded:Boolean = false;
-        
+
         public function Level()
         {
             Common.background = new PlayGrid(10,10,10,10,backLevel);
             Common.obstacleMap = new PlayGrid(10,10,10,10,obstacles);
             Common.playerGrid = new PlayGrid(10,10,10,10,blank);
+
+            startPoint = new FlxPoint(0,0);
+            endPoint = new FlxPoint(9, 5);
             
             add(Common.background);
             add(Common.obstacleMap);
@@ -78,7 +83,7 @@ package
             if (Common.canPlaceTile && Common.playerGrid.isInGrid(point) && (Common.obstacleMap.getTileType(point) == 0))
             {
                 Common.playerGrid.changeTile(point, tileType);
-                trace(Common.playerGrid.isPath(new FlxPoint(15,15), new FlxPoint(300, 15)))
+                trace(Common.playerGrid.isPath(new FlxPoint(0,0), new FlxPoint(9, 5)))
             }
         }
         
@@ -132,6 +137,12 @@ package
             else
             {
                 FlxG.log("Nothing to load.");
+            }
+        }
+
+        public function checkForWin():void {
+            if (Common.playerGrid.isPath(startPoint, endPoint)) {
+                Common.hud.showWin();
             }
         }
     }

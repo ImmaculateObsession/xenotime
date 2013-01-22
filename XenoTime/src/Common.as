@@ -7,6 +7,7 @@ package
         public static var TILEHEIGHT:uint = 64;
         public static var TILEWIDTH:uint = 64;
         [Embed(source='../assets/tilemap.png')] public static const MapTile:Class;
+        [Embed(source='../assets/logo.png')] public static const Logo:Class;
 
         public static var hud:HUD;
         public static var level:Level;
