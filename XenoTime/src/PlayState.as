@@ -59,7 +59,7 @@ package
                 }
             }
             Common.level.placeTile(point, tileType);
-            Common.level.checkForWin();
+            // Common.level.checkForWin();
             if (Common.canPlaceTile == false && Common.activePoint)
             {
                 Common.hud.showTileHandlers(Common.activePoint);

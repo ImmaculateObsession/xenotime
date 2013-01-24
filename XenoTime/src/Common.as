@@ -50,7 +50,7 @@ package
         public static var citySpecial2:uint = 57;
         public static var clockWiseButton:uint = 59;
         public static var counterClockButton:uint = 60;
-        public static var coin:uint = 61;
+        public static var deleteSymbol:uint = 61;
 
         public function Common()
         {}

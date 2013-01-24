@@ -24,6 +24,7 @@ package
 
         protected var clockRot:FlxExtendedSprite;
         protected var counterClockRot:FlxExtendedSprite;
+        protected var deleteButton:FlxExtendedSprite;
 
         //TEMP buttons for saving and loading
         protected var saveButton:FlxExtendedSprite;
@@ -67,6 +68,13 @@ package
             counterClockRot.visible = false;
             counterClockRot.enableMouseClicks(true);
 
+            deleteButton = new FlxExtendedSprite();
+            deleteButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            deleteButton.frame = Common.deleteSymbol;
+            deleteButton.visible = false;
+            deleteButton.enableMouseClicks(true);
+
+
             //TEMP save and load buttons for testing save and load
             saveButton = new FlxExtendedSprite(700, 20);
             saveButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
@@ -87,6 +95,7 @@ package
 
             add(clockRot);
             add(counterClockRot);
+            add(deleteButton);
 
             add(forestStraight);
             add(forestCorner);
@@ -166,6 +175,9 @@ package
             counterClockRot.visible = true;
             clockRot.mouseReleasedCallback = clockwiseHandler;
             counterClockRot.mouseReleasedCallback = counterClockwiseHandler;
+            deleteButton.x = startX;
+            deleteButton.y = startY;
+            deleteButton.visible = true;
         }
 
         public function hideTileHandlers():void {
@@ -175,6 +187,9 @@ package
             clockRot.y = -100;
             counterClockRot.x = -100;
             counterClockRot.y = -100;
+            deleteButton.x = -100;
+            deleteButton.y = -100;
+            deleteButton.visible = false;
         }
 
         protected function clockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void

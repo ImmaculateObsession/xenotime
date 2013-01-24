@@ -83,7 +83,7 @@ package
             if (Common.canPlaceTile && Common.playerGrid.isInGrid(point) && (Common.obstacleMap.getTileType(point) == 0))
             {
                 Common.playerGrid.changeTile(point, tileType);
-                trace(Common.playerGrid.isPath(new FlxPoint(0,0), new FlxPoint(9, 5)))
+                trace(Common.playerGrid.isPath(startPoint, endPoint));
             }
         }
         
@@ -141,7 +141,9 @@ package
         }
 
         public function checkForWin():void {
-            if (Common.playerGrid.isPath(startPoint, endPoint)) {
+            var result:Boolean = Common.playerGrid.isPath(startPoint, endPoint);
+            // trace(result);
+            if (result == true) {
                 Common.hud.showWin();
             }
         }
