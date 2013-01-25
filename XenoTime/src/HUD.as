@@ -165,7 +165,7 @@ package
         // TODO: Remove magic numbers from math.
         public function showTileHandlers(point:FlxPoint):void
         {
-            var startX:uint = (Math.floor((point.x-10)/64) * 64) + 10;
+            var startX:uint = (Math.floor((point.x - 10)/64) * 64) + 10;
             var startY:uint = (Math.floor((point.y - 10)/64) * 64) + 10;
             clockRot.x = startX - 32;
             counterClockRot.x = startX + 32;
@@ -178,6 +178,7 @@ package
             deleteButton.x = startX;
             deleteButton.y = startY;
             deleteButton.visible = true;
+            deleteButton.mouseReleasedCallback = deleteHandler;
         }
 
         public function hideTileHandlers():void {
@@ -200,6 +201,11 @@ package
         protected function counterClockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void
         {
             Common.playerGrid.rotateTile(false);
+        }
+
+        protected function deleteHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void {
+            hideTileHandlers();
+            Common.playerGrid.deleteTile();
         }
 
         public function showWin():void {

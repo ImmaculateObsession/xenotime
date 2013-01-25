@@ -10,7 +10,6 @@ package
         protected var startFrame:uint;
         public var gridX:uint;
         public var gridY:uint;
-        public var explored:Boolean = false;
         public var parent:Tile = null;
         public var isParent:Boolean = false;
 
@@ -81,6 +80,14 @@ package
             sides[3] = sides[2];
             sides[2] = sides[1];
             sides[1] = temp;
+        }
+
+        public function resetTile():void {
+            this.frame = 0;
+            parent = null;
+            isParent = false;
+            closed = true;
+            sides = [false, false, false, false];
         }
 
         public function setFrame(tileType:uint):void

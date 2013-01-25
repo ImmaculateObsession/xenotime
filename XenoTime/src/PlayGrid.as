@@ -79,6 +79,11 @@ package
             }
         }
 
+        public function deleteTile():void {
+            Common.hud.hideTileHandlers();
+            tiles[activeTile.x][activeTile.y].resetTile();
+        }
+
         protected function translatePoint(point:FlxPoint):FlxPoint
         {
             var tileX:uint = Math.floor((point.x-10)/Common.TILEWIDTH);
