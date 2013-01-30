@@ -147,7 +147,7 @@ package
                 return true;
             }
             var neighbors:Array = findNeighbors(start);
-            for (var index in neighbors)
+            for (var index:String in neighbors)
             {
                 var neighbor:Tile = neighbors[index];
                 if (neighbor != start.parent)

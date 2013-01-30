@@ -7,6 +7,10 @@ package
     {
         protected var tileType:uint = 0;
 
+        public function PlayState() {
+            super();
+        }
+
         override public function create():void
         {
             FlxG.addPlugin(new FlxMouseControl);
