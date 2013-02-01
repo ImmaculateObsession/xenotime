@@ -54,9 +54,9 @@ package
 
         public function Level()
         {
-            Common.background = new PlayGrid(10,10,10,10,backLevel);
-            Common.obstacleMap = new PlayGrid(10,10,10,10,obstacles);
-            Common.playerGrid = new PlayGrid(10,10,10,10,blank);
+            Common.background = new PlayGrid(10,10,40,40,backLevel);
+            Common.obstacleMap = new PlayGrid(10,10,40,40,obstacles);
+            Common.playerGrid = new PlayGrid(10,10,40,40,blank);
 
             startPoint = new FlxPoint(0,0);
             endPoint = new FlxPoint(9, 5);

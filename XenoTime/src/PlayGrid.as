@@ -13,6 +13,8 @@ package
         protected var gridHeight:uint;
         protected var gridStart:FlxPoint;
         protected var gridEnd:FlxPoint;
+        public var gridX:uint;
+        public var gridY:uint;
         public var activeTile:FlxPoint;
         protected var path:Array = [];
 
@@ -21,6 +23,8 @@ package
             this.tileData = tileData;
             gridWidth = width;
             gridHeight = height;
+            gridX = x;
+            gridY = y;
             gridStart = new FlxPoint(x, y);
             gridEnd = new FlxPoint(x + width * Common.TILEWIDTH, y + height * Common.TILEHEIGHT);
 
@@ -86,8 +90,8 @@ package
 
         protected function translatePoint(point:FlxPoint):FlxPoint
         {
-            var tileX:uint = Math.floor((point.x-10)/Common.TILEWIDTH);
-            var tileY:uint = Math.floor((point.y-10)/Common.TILEHEIGHT);
+            var tileX:uint = Math.floor((point.x-gridX)/Common.TILEWIDTH);
+            var tileY:uint = Math.floor((point.y-gridY)/Common.TILEHEIGHT);
             return new FlxPoint(tileX, tileY);
         }
 

@@ -165,10 +165,10 @@ package
         // TODO: Remove magic numbers from math.
         public function showTileHandlers(point:FlxPoint):void
         {
-            var startX:uint = (Math.floor((point.x - 10)/64) * 64) + 10;
-            var startY:uint = (Math.floor((point.y - 10)/64) * 64) + 10;
-            clockRot.x = startX - 32;
-            counterClockRot.x = startX + 32;
+            var startX:uint = (Math.floor((point.x - Common.playerGrid.gridX)/Common.TILEWIDTH) * Common.TILEWIDTH) + Common.playerGrid.gridX;
+            var startY:uint = (Math.floor((point.y - Common.playerGrid.gridY)/Common.TILEHEIGHT) * Common.TILEHEIGHT) + Common.playerGrid.gridY;
+            clockRot.x = startX - (Common.TILEWIDTH / 2);
+            counterClockRot.x = startX + (Common.TILEHEIGHT / 2);
             clockRot.y = startY;
             counterClockRot.y = startY;
             clockRot.visible = true;
