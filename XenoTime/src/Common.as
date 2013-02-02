@@ -6,6 +6,11 @@ package
     {
         public static var TILEHEIGHT:uint = 64;
         public static var TILEWIDTH:uint = 64;
+        public static var LEVELX:uint = 74;
+        public static var LEVELY:uint = 74;
+        public static var GRIDWIDTH:uint = 10;
+        public static var GRIDHEIGHT:uint = 10;
+        
         [Embed(source='../assets/tilemap.png')] public static const MapTile:Class;
         [Embed(source='../assets/logo.png')] public static const Logo:Class;
 

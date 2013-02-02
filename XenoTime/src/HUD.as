@@ -57,6 +57,13 @@ package
             cityThree.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             cityThree.frame = Common.cityPipe3;
 
+            plantTile = new FlxSprite(Common.LEVELX - Common.TILEWIDTH, Common.LEVELY);
+            plantTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            cityTile = new FlxSprite((Common.TILEWIDTH * Common.GRIDWIDTH) + Common.LEVELX, Common.GRIDHEIGHT * Common.TILEHEIGHT/2);
+            cityTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            plantTile.frame = Common.forestTile;
+            cityTile.frame = Common.cityTile;
+
             clockRot = new FlxExtendedSprite();
             clockRot.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             clockRot.frame = Common.clockWiseButton;
@@ -92,6 +99,9 @@ package
 
             add(saveButton);
             add(loadButton);
+
+            add(plantTile);
+            add(cityTile);
 
             add(clockRot);
             add(counterClockRot);
@@ -209,7 +219,7 @@ package
         }
 
         public function showWin():void {
-            add(new FlxText(100, 700, 100, "You win!"));
+            add(new FlxText(100, 800, 100, "You win!"));
         }
     }
 }

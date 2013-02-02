@@ -22,9 +22,9 @@ package
         protected var obstacles:Array = new Array(
             0,0,7,0,0,0,0,13,0,0,
             0,0,8,0,0,0,0,14,0,0,
-            0,0,0,11,12,0,0,0,0,0,
-            0,0,0,0,0,0,0,7,0,0,
-            7,0,0,0,0,0,0,8,0,0,
+            0,0,0,11,12,0,0,7,0,0,
+            0,0,0,0,0,0,0,8,0,0,
+            7,0,0,0,0,0,0,0,0,0,
             8,0,0,13,0,0,0,0,0,0,
             0,0,0,14,0,9,10,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
@@ -54,12 +54,12 @@ package
 
         public function Level()
         {
-            Common.background = new PlayGrid(10,10,40,40,backLevel);
-            Common.obstacleMap = new PlayGrid(10,10,40,40,obstacles);
-            Common.playerGrid = new PlayGrid(10,10,40,40,blank);
+            Common.background = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,backLevel);
+            Common.obstacleMap = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,obstacles);
+            Common.playerGrid = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,blank);
 
             startPoint = new FlxPoint(0,0);
-            endPoint = new FlxPoint(9, 5);
+            endPoint = new FlxPoint(9, 4);
             
             add(Common.background);
             add(Common.obstacleMap);
