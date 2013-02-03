@@ -219,7 +219,7 @@ package
         }
 
         public function showWin():void {
-            add(new FlxText(100, 800, 100, "You win!"));
+            add(new FlxText(100, 744, 100, "You win!"));
         }
     }
 }
