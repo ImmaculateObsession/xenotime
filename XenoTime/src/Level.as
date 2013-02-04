@@ -20,11 +20,11 @@ package
             1,2,1,2,1,2,1,2,1,2,
             3,4,3,4,3,4,3,4,3,4);
         protected var obstacles:Array = new Array(
-            0,0,0,0,0,0,0,0,0,0,
+            0,0,7,0,0,0,0,13,0,0,
             0,0,8,0,0,0,0,14,0,0,
-            0,0,0,11,12,0,0,0,0,0,
-            0,0,0,0,0,0,0,7,0,0,
-            7,0,0,0,0,0,0,8,0,0,
+            0,0,0,11,12,0,0,7,0,0,
+            0,0,0,0,0,0,0,8,0,0,
+            7,0,0,0,0,0,0,0,0,0,
             8,0,0,13,0,0,0,0,0,0,
             0,0,0,14,0,9,10,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
@@ -41,7 +41,9 @@ package
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0);
-        
+
+        protected var startPoint:FlxPoint;
+        protected var endPoint:FlxPoint;
 
         //holds the save object
         private static var saveState:FlxSave;
@@ -49,12 +51,15 @@ package
         private static var tempSaveData:Array;
         //if the level has loaded correctly
         private var hasLoaded:Boolean = false;
-        
+
         public function Level()
         {
-            Common.background = new PlayGrid(10,10,10,10,backLevel);
-            Common.obstacleMap = new PlayGrid(10,10,10,10,obstacles);
-            Common.playerGrid = new PlayGrid(10,10,10,10,blank);
+            Common.background = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,backLevel);
+            Common.obstacleMap = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,obstacles);
+            Common.playerGrid = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,blank);
+
+            startPoint = new FlxPoint(0,0);
+            endPoint = new FlxPoint(9, 4);
             
             add(Common.background);
             add(Common.obstacleMap);
@@ -78,6 +83,7 @@ package
             if (Common.canPlaceTile && Common.playerGrid.isInGrid(point) && (Common.obstacleMap.getTileType(point) == 0))
             {
                 Common.playerGrid.changeTile(point, tileType);
+                checkForWin();
             }
         }
         
@@ -131,6 +137,14 @@ package
             else
             {
                 FlxG.log("Nothing to load.");
+            }
+        }
+
+        public function checkForWin():void {
+            var result:Boolean = Common.playerGrid.isPath(startPoint, endPoint);
+            trace(result);
+            if (result == true) {
+                Common.hud.showWin();
             }
         }
     }

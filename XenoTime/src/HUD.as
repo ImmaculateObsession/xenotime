@@ -3,6 +3,7 @@ package
     import org.flixel.FlxSprite;
     import org.flixel.FlxGroup;
     import org.flixel.FlxPoint;
+    import org.flixel.FlxText;
     import org.flixel.plugin.photonstorm.FlxExtendedSprite;
 
     public class HUD extends FlxGroup
@@ -16,11 +17,14 @@ package
         protected var cityQuad:FlxSprite;
         protected var cityThree:FlxSprite;
 
+        protected var logo:FlxSprite;
+
         public var cityTile:FlxSprite;
         public var plantTile:FlxSprite;
 
         protected var clockRot:FlxExtendedSprite;
         protected var counterClockRot:FlxExtendedSprite;
+        protected var deleteButton:FlxExtendedSprite;
 
         //TEMP buttons for saving and loading
         protected var saveButton:FlxExtendedSprite;
@@ -53,6 +57,13 @@ package
             cityThree.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             cityThree.frame = Common.cityPipe3;
 
+            plantTile = new FlxSprite(Common.LEVELX - Common.TILEWIDTH, Common.LEVELY);
+            plantTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            cityTile = new FlxSprite((Common.TILEWIDTH * Common.GRIDWIDTH) + Common.LEVELX, Common.GRIDHEIGHT * Common.TILEHEIGHT/2);
+            cityTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            plantTile.frame = Common.forestTile;
+            cityTile.frame = Common.cityTile;
+
             clockRot = new FlxExtendedSprite();
             clockRot.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             clockRot.frame = Common.clockWiseButton;
@@ -63,6 +74,13 @@ package
             counterClockRot.frame = Common.counterClockButton;
             counterClockRot.visible = false;
             counterClockRot.enableMouseClicks(true);
+
+            deleteButton = new FlxExtendedSprite();
+            deleteButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            deleteButton.frame = Common.deleteSymbol;
+            deleteButton.visible = false;
+            deleteButton.enableMouseClicks(true);
+
 
             //TEMP save and load buttons for testing save and load
             saveButton = new FlxExtendedSprite(700, 20);
@@ -76,11 +94,18 @@ package
             loadButton.visible = true;
             loadButton.enableMouseClicks(true);
 
+            logo = new FlxSprite(800, 650);
+            logo.loadGraphic(Common.Logo, true, false, 100, 100, false);
+
             add(saveButton);
             add(loadButton);
 
+            add(plantTile);
+            add(cityTile);
+
             add(clockRot);
             add(counterClockRot);
+            add(deleteButton);
 
             add(forestStraight);
             add(forestCorner);
@@ -90,6 +115,7 @@ package
             add(cityCorner);
             add(cityQuad);
             add(cityThree);
+            add(logo);
         }
 
         public function handleClick(point:FlxPoint):uint
@@ -130,6 +156,7 @@ package
             if (typeClicked) {
                 Common.canPlaceTile = true;
                 Common.activePoint = null;
+                hideTileHandlers();
             }
 
             // Hack to get save buttons in without messing
@@ -144,19 +171,36 @@ package
             }
             return typeClicked;
         }
-
+        // Show the rotation and deletion buttons when a tile is placed.
+        // TODO: Remove magic numbers from math.
         public function showTileHandlers(point:FlxPoint):void
         {
-            var startX:uint = (Math.floor((point.x-10)/64) * 64) + 10;
-            var startY:uint = (Math.floor((point.y - 10)/64) * 64) + 10;
-            clockRot.x = startX - 32;
-            counterClockRot.x = startX + 32;
+            var startX:uint = (Math.floor((point.x - Common.playerGrid.gridX)/Common.TILEWIDTH) * Common.TILEWIDTH) + Common.playerGrid.gridX;
+            var startY:uint = (Math.floor((point.y - Common.playerGrid.gridY)/Common.TILEHEIGHT) * Common.TILEHEIGHT) + Common.playerGrid.gridY;
+            clockRot.x = startX - (Common.TILEWIDTH / 2);
+            counterClockRot.x = startX + (Common.TILEHEIGHT / 2);
             clockRot.y = startY;
             counterClockRot.y = startY;
             clockRot.visible = true;
             counterClockRot.visible = true;
             clockRot.mouseReleasedCallback = clockwiseHandler;
             counterClockRot.mouseReleasedCallback = counterClockwiseHandler;
+            deleteButton.x = startX;
+            deleteButton.y = startY;
+            deleteButton.visible = true;
+            deleteButton.mouseReleasedCallback = deleteHandler;
+        }
+
+        public function hideTileHandlers():void {
+            clockRot.visible = false;
+            counterClockRot.visible = false;
+            clockRot.x = -100;
+            clockRot.y = -100;
+            counterClockRot.x = -100;
+            counterClockRot.y = -100;
+            deleteButton.x = -100;
+            deleteButton.y = -100;
+            deleteButton.visible = false;
         }
 
         protected function clockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void
@@ -167,6 +211,15 @@ package
         protected function counterClockwiseHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void
         {
             Common.playerGrid.rotateTile(false);
+        }
+
+        protected function deleteHandler(sprite:FlxExtendedSprite, mouseX:uint, mouseY:uint):void {
+            hideTileHandlers();
+            Common.playerGrid.deleteTile();
+        }
+
+        public function showWin():void {
+            add(new FlxText(100, 744, 100, "You win!"));
         }
     }
 }

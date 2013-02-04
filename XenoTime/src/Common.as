@@ -6,11 +6,18 @@ package
     {
         public static var TILEHEIGHT:uint = 64;
         public static var TILEWIDTH:uint = 64;
+        public static var LEVELX:uint = 74;
+        public static var LEVELY:uint = 74;
+        public static var GRIDWIDTH:uint = 10;
+        public static var GRIDHEIGHT:uint = 10;
+        
         [Embed(source='../assets/tilemap.png')] public static const MapTile:Class;
+        [Embed(source='../assets/logo.png')] public static const Logo:Class;
 
         public static var hud:HUD;
         public static var level:Level;
         public static var mouseTile:FlxSprite;
+        public static var emptyTile:Tile;
 
         public static var background:PlayGrid;
         public static var obstacleMap:PlayGrid;
@@ -48,7 +55,7 @@ package
         public static var citySpecial2:uint = 57;
         public static var clockWiseButton:uint = 59;
         public static var counterClockButton:uint = 60;
-        public static var coin:uint = 61;
+        public static var deleteSymbol:uint = 61;
 
         public function Common()
         {}

@@ -7,18 +7,24 @@ package
     public class PlayGrid extends FlxGroup
     {
         protected var tiles:Array;
+        protected var tileGraph:Array;
         protected var tileData:Array;
         protected var gridWidth:uint;
         protected var gridHeight:uint;
         protected var gridStart:FlxPoint;
         protected var gridEnd:FlxPoint;
+        public var gridX:uint;
+        public var gridY:uint;
         public var activeTile:FlxPoint;
+        protected var path:Array = [];
 
         public function PlayGrid(width:uint = 0, height:uint = 0, x:uint = 0, y:uint = 0, tileData:Array = null, doBuildTiles:Boolean = true)
         {
             this.tileData = tileData;
             gridWidth = width;
             gridHeight = height;
+            gridX = x;
+            gridY = y;
             gridStart = new FlxPoint(x, y);
             gridEnd = new FlxPoint(x + width * Common.TILEWIDTH, y + height * Common.TILEHEIGHT);
 
@@ -29,17 +35,16 @@ package
                 tiles[i] = new Array(height);
                 for (var j:int=0; j<height; j++)
                 {
-                    var tileX = i*Common.TILEWIDTH + x;
-                    var tileY = j*Common.TILEWIDTH + y;
-                    var gridX = Math.floor((tileX - x)/Common.TILEWIDTH);
-                    var gridY = Math.floor((tileY - y)/Common.TILEHEIGHT);
+                    var tileX:uint = i*Common.TILEWIDTH + x;
+                    var tileY:uint = j*Common.TILEWIDTH + y;
+                    var gridX:uint = Math.floor((tileX - x)/Common.TILEWIDTH);
+                    var gridY:uint = Math.floor((tileY - y)/Common.TILEHEIGHT);
                     tiles[i][j] = new Tile(tileX, tileY, Common.MapTile, tileData[j*height +i], gridX, gridY);
                     tiles[i][j].loadGraphic(Common.MapTile, true, false, Common.TILEWIDTH, Common.TILEHEIGHT, false);
                     add(tiles[i][j]);
                 }
             }
             refreshTiles();
-
         }
 
         // Load the right image and sides for each tile
@@ -78,10 +83,15 @@ package
             }
         }
 
+        public function deleteTile():void {
+            Common.hud.hideTileHandlers();
+            tiles[activeTile.x][activeTile.y].resetTile();
+        }
+
         protected function translatePoint(point:FlxPoint):FlxPoint
         {
-            var tileX:uint = Math.floor((point.x-10)/Common.TILEWIDTH);
-            var tileY:uint = Math.floor((point.y-10)/Common.TILEHEIGHT);
+            var tileX:uint = Math.floor((point.x-gridX)/Common.TILEWIDTH);
+            var tileY:uint = Math.floor((point.y-gridY)/Common.TILEHEIGHT);
             return new FlxPoint(tileX, tileY);
         }
 
@@ -112,7 +122,7 @@ package
                     retData.push(tiles[i][j].getType());
                 }
             }
-            return retData;        
+            return retData;
         }
 
         public function setTileData(newData:Array):void
@@ -122,82 +132,78 @@ package
 
         public function isPath(start:FlxPoint, end:FlxPoint):Boolean
         {
-            trace(start.x, start.y);
-            trace(end.x, end.y);
-            var startTile:FlxPoint = translatePoint(start);
-            var endTile:FlxPoint = translatePoint(end);
+            var startTile:Tile = tiles[start.x][start.y];
+            startTile.parent = Common.emptyTile;
+            var endTile:Tile = tiles[end.x][end.y];
             return pathWalker(startTile, endTile);
         }
 
-        protected function pathWalker(start:FlxPoint, end:FlxPoint):Boolean
+        protected function pathWalker(start:Tile, end:Tile):Boolean
         {
-            var path:Array = [start]
-            var index:uint = 0;
-            var hasSolution:Boolean;
-            trace(start.x, start.y);
-            trace(end.x, end.y);
-            trace("index =", index);
-            while (path.length != 0)
+            var closed:Boolean = start.isClosed();
+            var type:uint = start.getType();
+            if (closed == true || type == 0)
             {
-                trace("index in loop = ", index);
-                trace("path length = ", path.length);
-                trace(path[index].x, path[index].y);
-                if (path[index].x < 0 || path[index].y < 0)
-                {
-                    trace(index, "off end");
-                    path.pop();
-                    index--;
-                    continue;
-                }
-                var tile = tiles[path[index].x][path[index].y]
-                if (tile.gridX == end.x && tile.gridY == end.y)
-                {
-                    hasSolution = true;
-                    trace("We did it!");        
-                    break;
-                }
-                if (tile.isClosed())
-                {
-                    trace(index, "Tile is closed");
-                    path.pop();
-                    index--;
-                    continue;
-                }
-                if (tile.rightOpen())
-                {
-                    trace(index, "Pushing right");
-                    path.push(new FlxPoint(tile.gridX + 1, tile.gridY));
-                    index++;
-                    continue;
-                }
-                if (tile.bottomOpen())
-                {
-                    trace(index, "Pushing bottom");
-                    path.push(new FlxPoint(tile.gridX, tile.gridY + 1));
-                    index++;
-                    continue;
-                }
-                if (tile.topOpen())
-                {
-                    trace(index, "Pushing top");
-                    path.push(new FlxPoint(tile.gridX, tile.gridY - 1));
-                    index++;
-                    continue;
-                }
-                if (tile.leftOpen())
-                {
-                    trace(index, "Pushing left");
-                    path.push(new FlxPoint(tile.gridX - 1, tile.gridY));
-                    index++;
-                    continue;
-                }
+                return false;
             }
-            if (path.length != 0)
-            {
+            path.push(start);
+            if (start == end){
                 return true;
             }
+            var neighbors:Array = findNeighbors(start);
+            for (var index:String in neighbors)
+            {
+                var neighbor:Tile = neighbors[index];
+                if (neighbor != start.parent)
+                {
+                    neighbor.parent = start;
+                    start.isParent = true;
+                    var continuePath:Boolean = pathWalker(neighbor, end);
+                }
+                if (continuePath == true)
+                {
+                    return true;
+                }
+            }
+            path.pop();
             return false;
         }
 
+        // So it turns out this is the way we're going to determine the order 
+        // sides are evaluated in. Who knew.
+        protected function findNeighbors(tile:Tile):Array
+        {
+            var neighbor_array:Array = []
+            var add:Tile;
+            if (tile.sides[1] == true && tile.gridX != gridWidth - 1)
+            {
+                add = tiles[tile.gridX + 1][tile.gridY];
+                if (add.sides[3] == true) {
+                    neighbor_array.push(add);
+                }
+            }
+            if (tile.sides[2] == true && tile.gridY != gridHeight - 1)
+            {
+                add = tiles[tile.gridX][tile.gridY + 1];
+                if (add.sides[0] == true) {
+                    neighbor_array.push(add);
+                }
+            }
+            if (tile.sides[0] == true && tile.gridY != 0)
+            {
+                add = tiles[tile.gridX][tile.gridY - 1];
+                if (add.sides[2] == true) {
+                    neighbor_array.push(add);
+                }
+            }
+            if (tile.sides[3] == true && tile.gridX != 0)
+            {
+                add = tiles[tile.gridX - 1][tile.gridY];
+                if (add.sides[1] == true) {
+                    neighbor_array.push(add);
+                }
+            }
+            return neighbor_array;
+        }
     }
 }
