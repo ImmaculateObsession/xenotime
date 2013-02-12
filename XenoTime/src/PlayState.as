@@ -6,6 +6,7 @@ package
     public class PlayState extends FlxState
     {
         protected var tileType:uint = 0;
+        protected var hudBackground:FlxSprite;
 
         public function PlayState() {
             super();
@@ -21,7 +22,10 @@ package
 
             Common.mouseTile = new FlxSprite();
             Common.mouseTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
-            Common.emptyTile = new Tile(0, 0, Common.MapTile,0, 0,0);
+            Common.emptyTile = new Tile(0, 0, Common.MapTile, 0, 0, 0);
+            hudBackground = new FlxSprite(0, 0);
+            hudBackground.loadGraphic(Common.Background, true, false, 1024, 768, false);
+            add(hudBackground);
             add(Common.level);
             add(Common.hud);
             add(Common.mouseTile);

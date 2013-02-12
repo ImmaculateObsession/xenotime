@@ -32,37 +32,38 @@ package
 
         public function HUD()
         {
-            forestStraight = new FlxSprite(800, 100);
+            forestStraight = new FlxSprite(37, 126);
             forestStraight.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             forestStraight.frame = Common.forestPipe1;
-            forestCorner = new FlxSprite(900, 100);
+            forestCorner = new FlxSprite(37, 192);
             forestCorner.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             forestCorner.frame = Common.forestPipe2;
-            forestQuad = new FlxSprite(800, 200);
-            forestQuad.loadGraphic(Common.MapTile, true, false, 64, 64, false);
-            forestQuad.frame = Common.forestPipe4;
-            forestThree = new FlxSprite(900, 200);
+            forestThree = new FlxSprite(37, 258);
             forestThree.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             forestThree.frame = Common.forestPipe3;
-            cityStraight = new FlxSprite(800, 400);
+            forestQuad = new FlxSprite(37, 328);
+            forestQuad.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            forestQuad.frame = Common.forestPipe4;
+            cityStraight = new FlxSprite(182, 126);
             cityStraight.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             cityStraight.frame = Common.cityPipe1;
-            cityCorner = new FlxSprite(900, 400);
+            cityCorner = new FlxSprite(182, 192);
             cityCorner.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             cityCorner.frame = Common.cityPipe2;
-            cityQuad = new FlxSprite(800, 500);
-            cityQuad.loadGraphic(Common.MapTile, true, false, 64, 64, false);
-            cityQuad.frame = Common.cityPipe4;
-            cityThree = new FlxSprite(900, 500);
+            cityThree = new FlxSprite(182, 258);
             cityThree.loadGraphic(Common.MapTile, true, false, 64, 64, false);
             cityThree.frame = Common.cityPipe3;
+            cityQuad = new FlxSprite(182, 328);
+            cityQuad.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            cityQuad.frame = Common.cityPipe4;
+            
 
-            plantTile = new FlxSprite(Common.LEVELX - Common.TILEWIDTH, Common.LEVELY);
-            plantTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
-            cityTile = new FlxSprite((Common.TILEWIDTH * Common.GRIDWIDTH) + Common.LEVELX, Common.GRIDHEIGHT * Common.TILEHEIGHT/2);
-            cityTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
-            plantTile.frame = Common.forestTile;
-            cityTile.frame = Common.cityTile;
+            // plantTile = new FlxSprite(Common.LEVELX - Common.TILEWIDTH, Common.LEVELY);
+            // plantTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            // cityTile = new FlxSprite((Common.TILEWIDTH * Common.GRIDWIDTH) + Common.LEVELX, Common.GRIDHEIGHT * Common.TILEHEIGHT/2);
+            // cityTile.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            // plantTile.frame = Common.forestTile;
+            // cityTile.frame = Common.cityTile;
 
             clockRot = new FlxExtendedSprite();
             clockRot.loadGraphic(Common.MapTile, true, false, 64, 64, false);
@@ -83,25 +84,25 @@ package
 
 
             //TEMP save and load buttons for testing save and load
-            saveButton = new FlxExtendedSprite(700, 20);
-            saveButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
-            saveButton.frame = 38;
-            saveButton.visible = true;
-            saveButton.enableMouseClicks(true);
-            loadButton = new FlxExtendedSprite(900, 20);
-            loadButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
-            loadButton.frame = 39;
-            loadButton.visible = true;
-            loadButton.enableMouseClicks(true);
+            // saveButton = new FlxExtendedSprite(700, 20);
+            // saveButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            // saveButton.frame = 38;
+            // saveButton.visible = true;
+            // saveButton.enableMouseClicks(true);
+            // loadButton = new FlxExtendedSprite(900, 20);
+            // loadButton.loadGraphic(Common.MapTile, true, false, 64, 64, false);
+            // loadButton.frame = 39;
+            // loadButton.visible = true;
+            // loadButton.enableMouseClicks(true);
 
-            logo = new FlxSprite(800, 650);
+            logo = new FlxSprite(64, 580);
             logo.loadGraphic(Common.Logo, true, false, 100, 100, false);
 
             add(saveButton);
             add(loadButton);
 
-            add(plantTile);
-            add(cityTile);
+            // add(plantTile);
+            // add(cityTile);
 
             add(clockRot);
             add(counterClockRot);
@@ -159,16 +160,16 @@ package
                 hideTileHandlers();
             }
 
-            // Hack to get save buttons in without messing
-            // with tile selection
-            if (saveButton.overlapsPoint(point))
-            {
-                typeClicked = 1;
-            }
-            else if (loadButton.overlapsPoint(point))
-            {
-                typeClicked = 2;
-            }
+            // // Hack to get save buttons in without messing
+            // // with tile selection
+            // if (saveButton.overlapsPoint(point))
+            // {
+            //     typeClicked = 1;
+            // }
+            // else if (loadButton.overlapsPoint(point))
+            // {
+            //     typeClicked = 2;
+            // }
             return typeClicked;
         }
         // Show the rotation and deletion buttons when a tile is placed.
@@ -177,8 +178,8 @@ package
         {
             var startX:uint = (Math.floor((point.x - Common.playerGrid.gridX)/Common.TILEWIDTH) * Common.TILEWIDTH) + Common.playerGrid.gridX;
             var startY:uint = (Math.floor((point.y - Common.playerGrid.gridY)/Common.TILEHEIGHT) * Common.TILEHEIGHT) + Common.playerGrid.gridY;
-            clockRot.x = startX - (Common.TILEWIDTH / 2);
-            counterClockRot.x = startX + (Common.TILEHEIGHT / 2);
+            clockRot.x = startX + (Common.TILEWIDTH / 2) + 10;
+            counterClockRot.x = startX - (Common.TILEHEIGHT / 2) - 10;
             clockRot.y = startY;
             counterClockRot.y = startY;
             clockRot.visible = true;
@@ -219,7 +220,9 @@ package
         }
 
         public function showWin():void {
-            add(new FlxText(100, 744, 100, "You win!"));
+            var winText:FlxText = new FlxText(400, 710, 100, "You win!");
+            winText.color = 0x000000;
+            add(new FlxText(400, 710, 100, "You win!"));
         }
     }
 }

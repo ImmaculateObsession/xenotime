@@ -50,9 +50,9 @@ package
 
         public function rotateClockwise():void
         {
-            if (this.frame == startFrame)
+            if (this.frame == startFrame + 3)
             {
-                this.frame = startFrame - 3;
+                this.frame = startFrame;
             }
             else
             {
@@ -67,9 +67,9 @@ package
 
         public function rotateCounterClockwise():void
         {
-            if (this.frame == startFrame - 3)
+            if (this.frame == startFrame)
             {
-                this.frame = startFrame;
+                this.frame = startFrame + 3;
             }
             else
             {

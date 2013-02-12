@@ -18,7 +18,7 @@ for IMAGE in `cat $EXP_LIST`; do
         then
             for angle in 90 180 270; do
                 name=$((angle / 90))
-                convert -rotate $angle $IMAGE auto_gen/${IMAGE%%.*}.$name.png
+                convert -rotate $angle $IMAGE auto_gen/${IMAGE%%.*}$name.png
             done
     fi
     convert -crop 64x64 $IMAGE auto_gen/$IMAGE
