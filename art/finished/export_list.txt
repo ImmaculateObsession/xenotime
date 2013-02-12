@@ -1,5 +1,5 @@
 blank_square.png
-game_board_bg_tile1.png
+game_board_bg_tile2.png
 tile1.png
 tile2.png
 forest_obsticle1.png
