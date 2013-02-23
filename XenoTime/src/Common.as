@@ -14,6 +14,8 @@ package
         [Embed(source='../assets/tilemap.png')] public static const MapTile:Class;
         [Embed(source='../assets/logo.png')] public static const Logo:Class;
         [Embed(source='../assets/hud.png')] public static const Background:Class;
+        [Embed(source='../assets/animation_spritesheet.png')] public static const Animation:Class;
+        [Embed(source='../assets/title_screen.png')] public static const TitleScreen:Class;
 
         public static var hud:HUD;
         public static var level:Level;
@@ -57,6 +59,40 @@ package
         public static var clockWiseButton:uint = 65;
         public static var counterClockButton:uint = 66;
         public static var deleteSymbol:uint = 67;
+
+        public static var backLevel:Array = new Array(
+            5,2,1,2,1,2,1,2,1,2,
+            3,4,3,4,3,4,3,4,3,4,
+            1,2,1,2,1,2,1,2,1,2,
+            3,4,3,4,3,4,3,4,3,4,
+            1,2,1,2,1,2,1,2,1,6,
+            3,4,3,4,3,4,3,4,3,4,
+            1,2,1,2,1,2,1,2,1,2,
+            3,4,3,4,3,4,3,4,3,4,
+            1,2,1,2,1,2,1,2,1,2,
+            3,4,3,4,3,4,3,4,3,4);
+        public static var obstacles:Array = new Array(
+            0,0,7,0,0,0,0,13,0,0,
+            0,0,8,0,0,0,0,14,0,0,
+            0,0,0,11,12,0,0,7,0,0,
+            0,0,0,0,0,0,0,8,0,0,
+            7,0,0,0,0,0,0,0,0,0,
+            8,0,0,13,0,0,0,0,0,0,
+            0,0,0,14,0,9,10,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,13,0,0,0,0,0,11,12,0,
+            0,14,0,0,0,0,0,0,0,0);
+        public static var blank:Array = new Array(
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0);
 
         public function Common()
         {}

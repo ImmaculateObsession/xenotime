@@ -13,9 +13,8 @@ package
 
         override public function create():void {
             FlxG.mouse.show();
-            var startSprite:FlxSprite = new FlxSprite(500,500);
-            startSprite.loadGraphic(Common.Logo, true, false, 100, 100, false);
-            startSprite.frame = Common.cityTile;
+            var startSprite:FlxSprite = new FlxSprite(100,100);
+            startSprite.loadGraphic(Common.TitleScreen, true, false, 640, 640, false);
 
             add(startSprite)
 
@@ -23,7 +22,7 @@ package
         }
 
         protected function onClick(event:MouseEvent):void {
-            FlxG.switchState(new PlayState());
+            FlxG.switchState(new Tutorial1);
         }
 
         override public function destroy():void {
