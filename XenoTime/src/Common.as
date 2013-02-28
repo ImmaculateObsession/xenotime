@@ -29,6 +29,8 @@ package
         public static var canPlaceTile:Boolean = false;
         public static var activePoint:FlxPoint;
 
+        public static var path:Array;
+
         public static var blankTile:uint = 0;
         public static var bgTile1:uint = 1;
         public static var bgTile2:uint = 2;
@@ -89,6 +91,18 @@ package
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0,
+            0,0,0,0,0,0,0,0,0,0);
+
+        public static var test:Array = new Array(
+            27,0,0,0,0,0,0,0,0,0,
+            27,0,0,0,0,0,0,0,0,0,
+            27,0,0,0,0,0,0,0,0,0,
+            27,27,27,27,27,27,0,0,0,
+            0,0,0,0,0,0,27,0,0,0,
+            0,0,0,0,0,0,27,27,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,
             0,0,0,0,0,0,0,0,0,0,

@@ -30,6 +30,8 @@ package
         protected var saveButton:FlxExtendedSprite;
         protected var loadButton:FlxExtendedSprite;
 
+        protected var quail:FlxSprite;
+
         public function HUD()
         {
             forestStraight = new FlxSprite(37, 126);
@@ -82,6 +84,7 @@ package
             deleteButton.visible = false;
             deleteButton.enableMouseClicks(true);
 
+            
 
             //TEMP save and load buttons for testing save and load
             // saveButton = new FlxExtendedSprite(700, 20);
@@ -100,9 +103,6 @@ package
 
             add(saveButton);
             add(loadButton);
-
-            // add(plantTile);
-            // add(cityTile);
 
             add(clockRot);
             add(counterClockRot);
@@ -223,6 +223,8 @@ package
             var winText:FlxText = new FlxText(400, 710, 100, "You win!");
             winText.color = 0x000000;
             add(new FlxText(400, 710, 100, "You win!"));
+            quail = new Quail(Common.path[0].x, Common.path[0].y)
+            add(quail);
         }
     }
 }
