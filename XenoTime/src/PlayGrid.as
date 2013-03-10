@@ -148,6 +148,7 @@ package
             }
             path.push(start);
             if (start == end){
+                Common.path = path;
                 return true;
             }
             var neighbors:Array = findNeighbors(start);
@@ -162,6 +163,7 @@ package
                 }
                 if (continuePath == true)
                 {
+                    Common.path = path;
                     return true;
                 }
             }

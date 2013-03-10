@@ -8,39 +8,6 @@ package
     public class Level extends FlxGroup
     {
         
-        protected var backLevel:Array = new Array(
-            1,2,1,2,1,2,1,2,1,2,
-            3,4,3,4,3,4,3,4,3,4,
-            1,2,1,2,1,2,1,2,1,2,
-            3,4,3,4,3,4,3,4,3,4,
-            1,2,1,2,1,2,1,2,1,2,
-            3,4,3,4,3,4,3,4,3,4,
-            1,2,1,2,1,2,1,2,1,2,
-            3,4,3,4,3,4,3,4,3,4,
-            1,2,1,2,1,2,1,2,1,2,
-            3,4,3,4,3,4,3,4,3,4);
-        protected var obstacles:Array = new Array(
-            0,0,7,0,0,0,0,13,0,0,
-            0,0,8,0,0,0,0,14,0,0,
-            0,0,0,11,12,0,0,7,0,0,
-            0,0,0,0,0,0,0,8,0,0,
-            7,0,0,0,0,0,0,0,0,0,
-            8,0,0,13,0,0,0,0,0,0,
-            0,0,0,14,0,9,10,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,13,0,0,0,0,0,11,12,0,
-            0,14,0,0,0,0,0,0,0,0);
-        protected var blank:Array = new Array(
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0,
-            0,0,0,0,0,0,0,0,0,0);
 
         protected var startPoint:FlxPoint;
         protected var endPoint:FlxPoint;
@@ -54,9 +21,9 @@ package
 
         public function Level()
         {
-            Common.background = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,backLevel);
-            Common.obstacleMap = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,obstacles);
-            Common.playerGrid = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,blank);
+            Common.background = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,Common.backLevel);
+            Common.obstacleMap = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,Common.obstacles);
+            Common.playerGrid = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,Common.test);
 
             startPoint = new FlxPoint(0,0);
             endPoint = new FlxPoint(9, 4);
@@ -74,7 +41,7 @@ package
             if (hasLoaded && saveState.data.tileData == null)
             {
                 //should prime the savestate's tileData with a blank tileData
-                saveState.data.tileData = blank;
+                saveState.data.tileData = Common.blank;
             } 
         }
         
