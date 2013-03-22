@@ -23,7 +23,7 @@ package
         {
             Common.background = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,Common.backLevel);
             Common.obstacleMap = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,Common.obstacles);
-            Common.playerGrid = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,Common.test);
+            Common.playerGrid = new PlayGrid(Common.GRIDWIDTH,Common.GRIDHEIGHT,Common.LEVELX,Common.LEVELY,Common.blank);
 
             startPoint = new FlxPoint(0,0);
             endPoint = new FlxPoint(9, 4);

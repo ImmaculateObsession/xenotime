@@ -22,7 +22,7 @@ package
         }
 
         protected function onClick(event:MouseEvent):void {
-            FlxG.switchState(new Tutorial1);
+            FlxG.switchState(new PlayState);
         }
 
         override public function destroy():void {

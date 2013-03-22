@@ -25,16 +25,7 @@ package
 
             add(startSprite);
 
-            FlxG.stage.addEventListener(MouseEvent.CLICK, onClick);
         }
 
-        protected function onClick(event:MouseEvent):void {
-            FlxG.switchState(new PlayState());
-        }
-
-        override public function destroy():void {
-            FlxG.stage.removeEventListener(MouseEvent.CLICK, onClick);
-            super.destroy();
-        }
     }
 } 

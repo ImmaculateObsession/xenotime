@@ -39,8 +39,8 @@ package
             {
                 handleClick(point);
             }
-            Common.mouseTile.x = point.x - 32;
-            Common.mouseTile.y = point.y - 32;
+            Common.mouseTile.x = point.x - (Common.TILEWIDTH / 2);
+            Common.mouseTile.y = point.y - (Common.TILEHEIGHT / 2);
             super.update();
         }
 
@@ -68,7 +68,6 @@ package
                 }
             }
             Common.level.placeTile(point, tileType);
-            // Common.level.checkForWin();
             if (Common.canPlaceTile == false && Common.activePoint)
             {
                 Common.hud.showTileHandlers(Common.activePoint);
