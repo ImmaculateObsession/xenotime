@@ -1,3 +1,7 @@
 city_coin.png
 forest_coin.png
+bubble1.png
+bubble2.png
+bubble3.png
+bubble4.png
 
