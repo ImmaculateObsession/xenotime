@@ -32,6 +32,8 @@ package
 
         protected var quail:FlxSprite;
 
+        protected var tutorial:TutorialBox;
+
         public function HUD()
         {
             forestStraight = new FlxSprite(37, 126);
@@ -84,7 +86,7 @@ package
             deleteButton.visible = false;
             deleteButton.enableMouseClicks(true);
 
-            
+            tutorial = new TutorialBox(100,100);
 
             //TEMP save and load buttons for testing save and load
             // saveButton = new FlxExtendedSprite(700, 20);
@@ -117,6 +119,7 @@ package
             add(cityQuad);
             add(cityThree);
             add(logo);
+            add(tutorial);
         }
 
         public function handleClick(point:FlxPoint):uint

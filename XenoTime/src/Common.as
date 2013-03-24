@@ -16,6 +16,10 @@ package
         [Embed(source='../assets/hud.png')] public static const Background:Class;
         [Embed(source='../assets/animation_spritesheet.png')] public static const Animation:Class;
         [Embed(source='../assets/title_screen.png')] public static const TitleScreen:Class;
+        [Embed(source='../assets/bubble1.png')] public static const Bubble1:Class;
+        [Embed(source='../assets/bubble2.png')] public static const Bubble2:Class;
+        [Embed(source='../assets/bubble3.png')] public static const Bubble3:Class;
+        [Embed(source='../assets/bubble4.png')] public static const Bubble4:Class;
 
         public static var hud:HUD;
         public static var level:Level;
